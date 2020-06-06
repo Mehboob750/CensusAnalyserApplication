@@ -121,5 +121,18 @@ namespace NUnitTestCensusAnalyser
                 Assert.AreEqual(CensusAnalyserException.ExceptionType.CensusFileProblem, e.type);
             }
         }
+
+        [Test]
+        public void GivenIndianStateCodeCSVFile__WhenHeaderIncorrect_ShouldThrowCustomException()
+        {
+            try
+            {
+                DataTable csvFile = CensusAnalyser.LoadIndiaStateCodeData(INDIA_StateCode_CSV_FILE_PATH);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.IncorrectHeader, e.type);
+            }
+        }
     }
 }
