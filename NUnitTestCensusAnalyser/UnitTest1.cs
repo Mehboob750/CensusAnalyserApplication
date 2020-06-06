@@ -13,6 +13,8 @@ namespace NUnitTestCensusAnalyser
 
         public static string INDIA_CENSUS_CSV_FILE_PATH = @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\IndiaStateCensusData.csv";
         public static string INCORRECT_FILE_CSV_FILE_PATH = @"IndiaStateCensus.csv";
+        public static string INCORRECT_Type_PATH = @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\IndiaStateCensusData.MP4";
+
 
         [Test]
         public void GivenIndianCensusCSVFile_WhenLoaded_ShouldReturnCorrectRecord()
@@ -29,6 +31,19 @@ namespace NUnitTestCensusAnalyser
                 DataTable csvFile = CensusAnalyser.LoadIndiaCensusData(INCORRECT_FILE_CSV_FILE_PATH);
             }
             catch(CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.CensusFileProblem, e.type);
+            }
+        }
+
+        [Test]
+        public void GivenIndianCensusCSVFile__WhenTypeIncorrect_ShouldThrowCustomException()
+        {
+            try
+            {
+                DataTable csvFile = CensusAnalyser.LoadIndiaCensusData(INCORRECT_Type_PATH);
+            }
+            catch (CensusAnalyserException e)
             {
                 Assert.AreEqual(CensusAnalyserException.ExceptionType.CensusFileProblem, e.type);
             }
