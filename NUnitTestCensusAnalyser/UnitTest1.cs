@@ -82,5 +82,18 @@ namespace NUnitTestCensusAnalyser
             DataTable csvFile = CensusAnalyser.LoadIndiaStateCodeData(INDIA_StateCode_CSV_FILE_PATH);
             Assert.AreEqual(37, csvFile.Rows.Count);
         }
+
+        [Test]
+        public void GivenIncorrectStateCodeFile_WhenLoaded_ShouldThrowCustomException()
+        {
+            try
+            {
+                DataTable csvFile = CensusAnalyser.LoadIndiaStateCodeData(INCORRECT_FILE_CSV_FILE_PATH);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.CensusFileProblem, e.type);
+            }
+        }
     }
 }
