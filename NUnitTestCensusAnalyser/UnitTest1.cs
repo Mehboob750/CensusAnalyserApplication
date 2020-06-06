@@ -95,5 +95,18 @@ namespace NUnitTestCensusAnalyser
                 Assert.AreEqual(CensusAnalyserException.ExceptionType.CensusFileProblem, e.type);
             }
         }
+
+        [Test]
+        public void GivenIndianStateCodeCSVFile__WhenTypeIncorrect_ShouldThrowCustomException()
+        {
+            try
+            {
+                DataTable csvFile = CensusAnalyser.LoadIndiaStateCodeData(INCORRECT_Type_PATH);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.CensusFileProblem, e.type);
+            }
+        }
     }
 }
