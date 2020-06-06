@@ -14,6 +14,7 @@ namespace NUnitTestCensusAnalyser
         public static string INDIA_CENSUS_CSV_FILE_PATH = @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\IndiaStateCensusData.csv";
         public static string INCORRECT_FILE_CSV_FILE_PATH = @"IndiaStateCensus.csv";
         public static string INCORRECT_Type_PATH = @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\IndiaStateCensusData.MP4";
+        public static string INDIA_StateCode_CSV_FILE_PATH = @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\IndiaStateCode.csv";
 
 
         [Test]
@@ -73,6 +74,13 @@ namespace NUnitTestCensusAnalyser
             {
                 Assert.AreEqual(CensusAnalyserException.ExceptionType.IncorrectHeader, e.type);
             }
+        }
+
+        [Test]
+        public void GivenIndianStateCodeCSVFile_WhenLoaded_ShouldReturnCorrectRecord()
+        {
+            DataTable csvFile = CensusAnalyser.LoadIndiaStateCodeData(INDIA_StateCode_CSV_FILE_PATH);
+            Assert.AreEqual(37, csvFile.Rows.Count);
         }
     }
 }
