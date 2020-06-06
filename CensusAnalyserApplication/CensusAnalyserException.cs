@@ -10,7 +10,7 @@ namespace CensusAnalyserApplication
 
         public enum ExceptionType
         {
-            CensusFileProblem
+            CensusFileProblem,DelimeterIncorrectException
         }
 
         public ExceptionType type { get; set; }

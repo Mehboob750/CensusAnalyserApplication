@@ -49,5 +49,18 @@ namespace NUnitTestCensusAnalyser
             }
         }
 
+        [Test]
+        public void GivenIndianCensusCSVFile__WhenDelimeterIncorrect_ShouldThrowCustomException()
+        {
+            try
+            {
+                DataTable csvFile = CensusAnalyser.LoadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.DelimeterIncorrectException, e.type);
+            }
+        }
+
     }
 }
