@@ -10,7 +10,7 @@ namespace CensusAnalyserApplication
 
         public enum ExceptionType
         {
-            CensusFileProblem
+            CensusFileProblem,IncorrectHeader
         }
 
         public ExceptionType type { get; set; }

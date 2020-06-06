@@ -38,6 +38,10 @@ namespace CensusAnalyserApplication
             {
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.CensusFileProblem,e.Message);
             }
+            catch (IndexOutOfRangeException e)
+            {
+                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.IncorrectHeader, e.Message);
+            }
             return csvFile;
         }
     }
