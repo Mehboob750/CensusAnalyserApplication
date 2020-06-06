@@ -9,50 +9,30 @@ namespace CensusAnalyserApplication
 {
     public class CensusAnalyser
     {
-        public static DataTable LoadIndiaCensusData(string path)
+        /// <summary>
+        /// This Method takes the input path of Census Csv File and give to the LoadData Method
+        /// </summary>
+        /// <param name="path">path parameter contains the path of India Census CSV File</param>
+        /// <returns>It returns the LoadedData in DataTable format</returns>
+        public DataTable LoadIndiaCensusData(string path)
         {
             DataTable csvCensusData = new DataTable();
-            return LoadData(csvCensusData, path);
+            csvCensusData = new OpenCSVBuilder().LoadData(csvCensusData, path);
+            return csvCensusData;
         }
 
-        public static DataTable LoadIndiaStateCodeData(string path)
+        /// <summary>
+        ///  This Method takes the input path of StateCode Csv File and give to the LoadData Method
+        /// </summary>
+        /// <param name="path">path parameter contains the path of India StateCode CSV File</param>
+        /// <returns>It returns the LoadedData in DataTable format</returns>
+        public DataTable LoadIndiaStateCodeData(string path)
         {
             DataTable csvStateCodeData = new DataTable();
-            return LoadData(csvStateCodeData, path);
+            csvStateCodeData = new OpenCSVBuilder().LoadData(csvStateCodeData, path);
+            return csvStateCodeData;
         }
 
-        public static DataTable LoadData(DataTable csvData, string path)
-        {
-            try
-            {
-                using (StreamReader csvReader = new StreamReader(path))
-                {
-                    string[] headers = csvReader.ReadLine().Split(',');
-                    foreach (string header in headers)
-                    {
-                        csvData.Columns.Add(header);
-                    }
-                    while (!csvReader.EndOfStream)
-                    {
-                        string[] rows = csvReader.ReadLine().Split(',');
-                        DataRow dataRow = csvData.NewRow();
-                        for (int i = 0; i < headers.Length; i++)
-                        {
-                            dataRow[i] = rows[i];
-                        }
-                        csvData.Rows.Add(dataRow);
-                    }
-                }
-            }
-            catch (FileNotFoundException e)
-            {
-                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.CensusFileProblem, e.Message);
-            }
-            catch (IndexOutOfRangeException e)
-            {
-                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.IncorrectHeader, e.Message);
-            }
-            return csvData;
-        }
+       
     }
 }
