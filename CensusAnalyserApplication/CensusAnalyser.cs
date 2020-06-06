@@ -34,7 +34,7 @@ namespace CensusAnalyserApplication
             }
             catch (FileNotFoundException e)
             {
-                Console.WriteLine("File Not Found Exception");
+                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.CensusFileProblem,e.Message);
             }
             return csvFile;
         }
