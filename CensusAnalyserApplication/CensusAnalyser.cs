@@ -15,20 +15,22 @@ namespace CensusAnalyserApplication
 
             try
             {
-                using(TextFieldParser csvReader = new TextFieldParser(path))
+                using(StreamReader csvReader = new StreamReader(path))
                 {
-                    csvReader.SetDelimiters(new string[] { "," });
-                    csvReader.HasFieldsEnclosedInQuotes = true;
-                    string[] fieldsOfFile = csvReader.ReadFields();
-                    foreach(string field in fieldsOfFile)
+                    string[] headers = csvReader.ReadLine().Split(',');
+                    foreach (string header in headers)
                     {
-                        DataColumn dataColumn = new DataColumn(field);
-                        csvFile.Columns.Add(dataColumn);
+                        csvFile.Columns.Add(header);
                     }
-                    while(!csvReader.EndOfData)
+                    while (!csvReader.EndOfStream)
                     {
-                        string[] rowsOfFile = csvReader.ReadFields();
-                        csvFile.Rows.Add(rowsOfFile);
+                        string[] rows = csvReader.ReadLine().Split(',');
+                        DataRow dataRow = csvFile.NewRow();
+                        for (int i = 0; i < headers.Length; i++)
+                        {
+                            dataRow[i] = rows[i];
+                        }
+                        csvFile.Rows.Add(dataRow);
                     }
                 }
             }

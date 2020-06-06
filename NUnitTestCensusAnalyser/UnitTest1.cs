@@ -58,7 +58,7 @@ namespace NUnitTestCensusAnalyser
             }
             catch (CensusAnalyserException e)
             {
-                Assert.AreEqual(CensusAnalyserException.ExceptionType.DelimeterIncorrectException, e.type);
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.CensusFileProblem, e.type);
             }
         }
 
