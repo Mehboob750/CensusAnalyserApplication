@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CensusAnalyserApplication
 {
-    public class OpenCSVBuilder
+    public class OpenCSVBuilder : IcsvBuilder
     {
         /// <summary>
         /// This Method is Used to Load both Census And StateCode data

@@ -17,7 +17,8 @@ namespace CensusAnalyserApplication
         public DataTable LoadIndiaCensusData(string path)
         {
             DataTable csvCensusData = new DataTable();
-            csvCensusData = new OpenCSVBuilder().LoadData(csvCensusData, path);
+            IcsvBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+            csvCensusData = csvBuilder.LoadData(csvCensusData, path);
             return csvCensusData;
         }
 
@@ -29,7 +30,8 @@ namespace CensusAnalyserApplication
         public DataTable LoadIndiaStateCodeData(string path)
         {
             DataTable csvStateCodeData = new DataTable();
-            csvStateCodeData = new OpenCSVBuilder().LoadData(csvStateCodeData, path);
+            IcsvBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+            csvStateCodeData = csvBuilder.LoadData(csvStateCodeData, path);
             return csvStateCodeData;
         }
 
