@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -16,7 +17,7 @@ namespace CensusAnalyserApplication
         /// </summary>
         public enum ExceptionType
         {
-            CensusFileProblem,IncorrectHeader
+            CensusFileProblem, IncorrectHeader
         }
 
         public ExceptionType type { get; set; }
