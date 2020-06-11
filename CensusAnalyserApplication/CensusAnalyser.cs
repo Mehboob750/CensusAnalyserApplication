@@ -10,6 +10,8 @@ namespace CensusAnalyserApplication
     public class CensusAnalyser
     {
         public List<IndiaCensusCSV> censusList = new List<IndiaCensusCSV>();
+        public List<IndiaStateCodeCSV> stateCodeList = new List<IndiaStateCodeCSV>();
+
 
         /// <summary>
         /// This Method takes the input path of Census Csv File and give to the LoadData Method
@@ -43,7 +45,6 @@ namespace CensusAnalyserApplication
             DataTable csvStateCodeData = new DataTable();
             IcsvBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             csvStateCodeData = csvBuilder.LoadData(csvStateCodeData, path);
-            List<IndiaStateCodeCSV> stateCodeList = new List<IndiaStateCodeCSV>();
             for (int counter = 0; counter < csvStateCodeData.Rows.Count; counter++)
             {
                 IndiaStateCodeCSV indiaStateCode = new IndiaStateCodeCSV();
@@ -65,5 +66,13 @@ namespace CensusAnalyserApplication
             return dataInJsonFormat;
         }
 
+        public string GetStateCodeWiseSortedCensusData()
+        {
+            if (stateCodeList == null || stateCodeList.Count() == 0)
+                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.UnableToParse, "No Census Data");
+            object listAlphabetically = stateCodeList.OrderBy(x => x.StateCode);
+            string dataInJsonFormat = JsonConvert.SerializeObject(listAlphabetically);
+            return dataInJsonFormat;
+        }
     }
 }

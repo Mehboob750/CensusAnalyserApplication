@@ -186,5 +186,14 @@ namespace NUnitTestCensusAnalyser
             string sortedData= censusAnalyser.GetStateWiseSortedCensusData();
             Console.WriteLine(sortedData);
         }
+
+        [Test]
+        public void GivenIndianCensusCSVFile__WhenSortedAccordingToStateCode_ShouldPrintTheSortedResult()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            censusAnalyser.LoadIndiaStateCodeData(INDIA_StateCode_CSV_FILE_PATH);
+            string sortedData = censusAnalyser.GetStateCodeWiseSortedCensusData();
+            Console.WriteLine(sortedData);
+        }
     }
 }
