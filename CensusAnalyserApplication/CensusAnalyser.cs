@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
 
 namespace CensusAnalyserApplication
 {
@@ -19,7 +21,6 @@ namespace CensusAnalyserApplication
             DataTable csvCensusData = new DataTable();
             IcsvBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             csvCensusData = csvBuilder.LoadData(csvCensusData, path);
-            List<IndiaCensusCSV> censusList = new List<IndiaCensusCSV>();
             for(int counter=0; counter<csvCensusData.Rows.Count;counter++)
             {
                 IndiaCensusCSV indiaCensus = new IndiaCensusCSV();
@@ -55,25 +56,14 @@ namespace CensusAnalyserApplication
             return stateCodeList.Count();
         }
 
-        public int readfromfile(string path)
+        public string GetStateWiseSortedCensusData()
         {
-            var lines = System.IO.File.ReadAllLines(path).Skip(1).TakeWhile(t => t != null);
-            foreach (string item in lines)
-            { 
-                var values = item.Split(',');
-                censusList.Add(new IndiaCensusCSV()
-                {
-                    State = values[0],
-                    Population = int.Parse(values[1]),
-                    AreaInSqKm = int.Parse(values[2]),
-                    DensityPerSqKm = int.Parse(values[3])
-                });
-            }
-            foreach (IndiaCensusCSV s in censusList)
-            {
-                Console.WriteLine(s.State +"\t"+s.Population+"\t"+s.AreaInSqKm+"\t"+s.DensityPerSqKm);
-            }
-            return censusList.Count();
+            if (censusList == null || censusList.Count() == 0)
+                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.UnableToParse, "No Census Data");
+            object listAlphabetically = censusList.OrderBy(x => x.State);
+            string dataInJsonFormat = JsonConvert.SerializeObject(listAlphabetically);
+            return dataInJsonFormat;
         }
+
     }
 }

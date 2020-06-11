@@ -1,4 +1,4 @@
-using System.Data;
+using System;
 using CensusAnalyserApplication;
 using NUnit.Framework;
 
@@ -179,11 +179,12 @@ namespace NUnitTestCensusAnalyser
         }
 
         [Test]
-        public void GivenIndianCensusCSVFile_WhenLoaded_ShouldReturnCorrect()
+        public void GivenIndianCensusCSVFile__WhenSortedAccordingToState_ShouldPrintTheSortedResult()
         {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
-            int numberOfRecords = censusAnalyser.readfromfile(INDIA_CENSUS_CSV_FILE_PATH);
-            Assert.AreEqual(29, numberOfRecords);
+            censusAnalyser.LoadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+            string sortedData= censusAnalyser.GetStateWiseSortedCensusData();
+            Console.WriteLine(sortedData);
         }
     }
 }
