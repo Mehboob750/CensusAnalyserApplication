@@ -215,7 +215,7 @@ namespace NUnitTestCensusAnalyser
         }
 
         /// <summary>
-        /// Load the Indian Census File and Sort the data by Population and result Store in Json Format
+        /// Load the Indian Census File and Sort the data by Population Density and result Store in Json Format
         /// </summary>
         [Test]
         public void GivenIndianCensusCSVFile__WhenSortedAccordingToPopulationDensity_ShouldPrintTheSortedResult()
@@ -223,6 +223,19 @@ namespace NUnitTestCensusAnalyser
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.LoadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
             string sortedData = censusAnalyser.GetPopulationDensityWiseSortedCensusData();
+            Console.WriteLine(sortedData);
+        }
+
+
+        /// <summary>
+        /// Load the Indian Census File and Sort the data by AreaPerInSqKm and result Store in Json Format
+        /// </summary>
+        [Test]
+        public void GivenIndianCensusCSVFile__WhenSortedAccordingToArea_ShouldPrintTheSortedResult()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            censusAnalyser.LoadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+            string sortedData = censusAnalyser.GetAreaWiseSortedCensusData();
             Console.WriteLine(sortedData);
         }
     }

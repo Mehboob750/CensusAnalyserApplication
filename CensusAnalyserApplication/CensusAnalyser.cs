@@ -86,8 +86,17 @@ namespace CensusAnalyserApplication
         {
             if (censusList == null || censusList.Count() == 0)
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.UnableToParse, "No Census Data");
-            object listByPopulation = censusList.OrderBy(x => x.populationDensity);
-            string dataInJsonFormat = JsonConvert.SerializeObject(listByPopulation);
+            object listByPopulationDensity = censusList.OrderBy(x => x.populationDensity);
+            string dataInJsonFormat = JsonConvert.SerializeObject(listByPopulationDensity);
+            return dataInJsonFormat;
+        }
+
+        public string GetAreaWiseSortedCensusData()
+        {
+            if (censusList == null || censusList.Count() == 0)
+                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.UnableToParse, "No Census Data");
+            object listByArea = censusList.OrderBy(x => x.areaInSqKm).Reverse();
+            string dataInJsonFormat = JsonConvert.SerializeObject(listByArea);
             return dataInJsonFormat;
         }
     }
