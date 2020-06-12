@@ -77,7 +77,7 @@ namespace CensusAnalyserApplication
         {
             if (censusList == null || censusList.Count() == 0)
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.UnableToParse, "No Census Data");
-            object listByPopulation = censusList.OrderBy(x => x.population);
+            object listByPopulation = censusList.OrderBy(x => x.population).Reverse();
             string dataInJsonFormat = JsonConvert.SerializeObject(listByPopulation);
             return dataInJsonFormat;
         }
