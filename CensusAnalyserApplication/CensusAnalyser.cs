@@ -8,6 +8,9 @@ namespace CensusAnalyserApplication
 {
     public class CensusAnalyser
     {
+        /// <summary>
+        /// Enum is used to define Enumerated data types
+        /// </summary>
         public enum Country { INDIA, US }
 
         //censusList contains the India Census Data And India State Code Data
@@ -15,10 +18,9 @@ namespace CensusAnalyserApplication
 
         //usCensusList contains the US Census Data 
         public List<CensusDAO> usCensusList = new List<CensusDAO>();
-        public Dictionary<string, CensusDAO> csvFileMap = new Dictionary<string, CensusDAO>();
 
         /// <summary>
-        /// This Method takes the input path of Census Csv File and give to the LoadData Method
+        /// This Method is Uses CensusAdapterFactory to Load Indian Census Data
         /// </summary>
         /// <param name="path">path parameter contains the path of India Census CSV File</param>
         /// <returns>It returns the LoadedData in List</returns>
@@ -29,7 +31,7 @@ namespace CensusAnalyserApplication
         }
 
         /// <summary>
-        ///  This Method takes the input path of StateCode Csv File and give to the LoadData Method
+        /// This Method is Uses CensusAdapterFactory to Load India StateCode Data
         /// </summary>
         /// <param name="path">path parameter contains the path of India StateCode CSV File</param>
         /// <returns>It returns the LoadedData in List</returns>
@@ -40,7 +42,7 @@ namespace CensusAnalyserApplication
         }
 
         /// <summary>
-        /// This Method takes the input path of US Census Csv File and give to the LoadData Method
+        /// This Method is Uses CensusAdapterFactory to Load India US Census Data
         /// </summary>
         /// <param name="path">path parameter contains the path of US Census CSV File</param>
         /// <returns>It returns the LoadedData in DataTable format</returns>

@@ -7,6 +7,12 @@ namespace CensusAnalyserApplication
 {
     public class CensusAdapterFactory
     {
+        /// <summary>
+        /// This Method check the Country and According to country that Adapter Class is return
+        /// </summary>
+        /// <param name="country">It contains the country name</param>
+        /// <param name="csvFilePath">It contains the csv File Path</param>
+        /// <returns>It returns the Adapter Class Based On Country</returns>
         public List<CensusDAO> LoadCensusData(CensusAnalyser.Country country, string csvFilePath)
         {
             if (country.Equals(CensusAnalyser.Country.INDIA))

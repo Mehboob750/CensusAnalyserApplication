@@ -10,7 +10,7 @@ namespace NUnitTestCensusAnalyser
         [SetUp]
         public void Setup()
         {
-
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
         }
 
         /// <summary>
@@ -28,7 +28,6 @@ namespace NUnitTestCensusAnalyser
         [Test]
         public void GivenIndianCensusCSVFile_WhenLoaded_ShouldReturnCorrectRecord()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
             int numberOfRecords = censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,INDIA_CENSUS_CSV_FILE_PATH);
             Assert.AreEqual(29, numberOfRecords);
         }

@@ -4,6 +4,9 @@ using System.Text;
 
 namespace CensusAnalyserApplication
 { 
+    /// <summary>
+    /// This Class is used to Accecc the Fields of csv files
+    /// </summary>
     public class CensusDAO
     {
         /// <summary>
