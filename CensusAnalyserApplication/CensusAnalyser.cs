@@ -81,6 +81,14 @@ namespace CensusAnalyserApplication
             string dataInJsonFormat = JsonConvert.SerializeObject(listByPopulation);
             return dataInJsonFormat;
         }
-       
+
+        public string GetPopulationDensityWiseSortedCensusData()
+        {
+            if (censusList == null || censusList.Count() == 0)
+                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.UnableToParse, "No Census Data");
+            object listByPopulation = censusList.OrderBy(x => x.populationDensity);
+            string dataInJsonFormat = JsonConvert.SerializeObject(listByPopulation);
+            return dataInJsonFormat;
+        }
     }
 }
