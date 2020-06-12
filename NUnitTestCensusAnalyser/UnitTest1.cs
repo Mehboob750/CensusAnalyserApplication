@@ -178,6 +178,9 @@ namespace NUnitTestCensusAnalyser
             }
         }
 
+        /// <summary>
+        /// Load the Indian Census File and Sort the data by State Name and result Store in Json Format
+        /// </summary>
         [Test]
         public void GivenIndianCensusCSVFile__WhenSortedAccordingToState_ShouldPrintTheSortedResult()
         {
@@ -187,6 +190,9 @@ namespace NUnitTestCensusAnalyser
             Console.WriteLine(sortedData);
         }
 
+        /// <summary>
+        /// Load the Indian State Code File and Sort the data by State Code and result Store in Json Format
+        /// </summary>
         [Test]
         public void GivenIndianCensusCSVFile__WhenSortedAccordingToStateCode_ShouldPrintTheSortedResult()
         {

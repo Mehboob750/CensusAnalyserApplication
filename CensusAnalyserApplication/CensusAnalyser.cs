@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Net.Http.Headers;
 using Newtonsoft.Json;
 
 namespace CensusAnalyserApplication
@@ -11,7 +10,7 @@ namespace CensusAnalyserApplication
     {
         public List<IndiaCensusCSV> censusList = new List<IndiaCensusCSV>();
         public List<IndiaStateCodeCSV> stateCodeList = new List<IndiaStateCodeCSV>();
-
+        public Dictionary<string, CensusDAO> csvFileMap = new Dictionary<string, CensusDAO>();
 
         /// <summary>
         /// This Method takes the input path of Census Csv File and give to the LoadData Method
@@ -23,7 +22,7 @@ namespace CensusAnalyserApplication
             DataTable csvCensusData = new DataTable();
             IcsvBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             csvCensusData = csvBuilder.LoadData(csvCensusData, path);
-            for(int counter=0; counter<csvCensusData.Rows.Count;counter++)
+            for (int counter = 0; counter < csvCensusData.Rows.Count; counter++)
             {
                 IndiaCensusCSV indiaCensus = new IndiaCensusCSV();
                 indiaCensus.State = csvCensusData.Rows[counter]["State"].ToString();
@@ -32,7 +31,8 @@ namespace CensusAnalyserApplication
                 indiaCensus.AreaInSqKm = Convert.ToInt32(csvCensusData.Rows[counter]["AreaInSqKm"].ToString());
                 censusList.Add(indiaCensus);
             }
-            return censusList.Count();
+            foreach (censusList->csvFileMap.put(censusList.state, new CensusDAO(censusList)));
+            return csvFileMap.Count();
         }
 
         /// <summary>
@@ -54,12 +54,13 @@ namespace CensusAnalyserApplication
                 indiaStateCode.StateCode = csvStateCodeData.Rows[counter]["StateCode"].ToString();
                 stateCodeList.Add(indiaStateCode);
             }
-            return stateCodeList.Count();
+            foreach (stateCodeList->csvFileMap.put(censusList.state, new CensusDAO(stateCodeList))) ;
+            return csvFileMap.Count();
         }
 
         public string GetStateWiseSortedCensusData()
         {
-            if (censusList == null || censusList.Count() == 0)
+            if (csvFileMap == null || csvFileMap.Count() == 0)
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.UnableToParse, "No Census Data");
             object listAlphabetically = censusList.OrderBy(x => x.State);
             string dataInJsonFormat = JsonConvert.SerializeObject(listAlphabetically);
@@ -68,7 +69,7 @@ namespace CensusAnalyserApplication
 
         public string GetStateCodeWiseSortedCensusData()
         {
-            if (stateCodeList == null || stateCodeList.Count() == 0)
+            if (csvFileMap == null || csvFileMap.Count() == 0)
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.UnableToParse, "No Census Data");
             object listAlphabetically = stateCodeList.OrderBy(x => x.StateCode);
             string dataInJsonFormat = JsonConvert.SerializeObject(listAlphabetically);
