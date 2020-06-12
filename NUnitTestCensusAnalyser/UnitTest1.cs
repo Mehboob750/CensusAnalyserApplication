@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using CensusAnalyserApplication;
 using NUnit.Framework;
 
@@ -19,6 +20,7 @@ namespace NUnitTestCensusAnalyser
         public static string INCORRECT_FILE_CSV_FILE_PATH = @"IndiaStateCensus.csv";
         public static string INCORRECT_Type_PATH = @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\IndiaStateCensusData.MP4";
         public static string INDIA_StateCode_CSV_FILE_PATH = @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\IndiaStateCode.csv";
+        public static string US_CENSUS_CSV_FILE_PATH= @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\USCensusData.csv";
 
         /// <summary>
         /// Load the Indian Census File and Check For the number of records present in the file
@@ -260,7 +262,6 @@ namespace NUnitTestCensusAnalyser
             Console.WriteLine(sortedData);
         }
 
-
         /// <summary>
         /// Load the Indian Census File and Sort the data by AreaPerInSqKm and result Store in Json Format
         /// </summary>
@@ -271,6 +272,17 @@ namespace NUnitTestCensusAnalyser
             censusAnalyser.LoadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
             string sortedData = censusAnalyser.GetAreaWiseSortedCensusData();
             Console.WriteLine(sortedData);
+        }
+
+        /// <summary>
+        /// Load the Indian Census File and Check For the number of records present in the file
+        /// </summary>
+        [Test]
+        public void GiveUsCensusCSVFile_WhenLoaded_ShouldReturnCorrectRecord()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            int numberOfRecords = censusAnalyser.LoadUsCensusData(US_CENSUS_CSV_FILE_PATH);
+            Assert.AreEqual(51, numberOfRecords);
         }
     }
 }

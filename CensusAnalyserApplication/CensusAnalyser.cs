@@ -9,13 +9,14 @@ namespace CensusAnalyserApplication
     public class CensusAnalyser
     {
         public List<CensusDAO> censusList = new List<CensusDAO>();
+        public List<USCensusDAO> usCensusList = new List<USCensusDAO>();
         public Dictionary<string, CensusDAO> csvFileMap = new Dictionary<string, CensusDAO>();
 
         /// <summary>
         /// This Method takes the input path of Census Csv File and give to the LoadData Method
         /// </summary>
         /// <param name="path">path parameter contains the path of India Census CSV File</param>
-        /// <returns>It returns the LoadedData in DataTable format</returns>
+        /// <returns>It returns the LoadedData in List</returns>
         public int LoadIndiaCensusData(string path)
         {
             DataTable csvCensusData = new DataTable();
@@ -37,7 +38,7 @@ namespace CensusAnalyserApplication
         ///  This Method takes the input path of StateCode Csv File and give to the LoadData Method
         /// </summary>
         /// <param name="path">path parameter contains the path of India StateCode CSV File</param>
-        /// <returns>It returns the LoadedData in DataTable format</returns>
+        /// <returns>It returns the LoadedData in List</returns>
         public int LoadIndiaStateCodeData(string path)
         {
             DataTable csvStateCodeData = new DataTable();
@@ -54,6 +55,33 @@ namespace CensusAnalyserApplication
             }
             return censusList.Count();
         }
+
+        /// <summary>
+        /// This Method takes the input path of US Census Csv File and give to the LoadData Method
+        /// </summary>
+        /// <param name="path">path parameter contains the path of US Census CSV File</param>
+        /// <returns>It returns the LoadedData in DataTable format</returns>
+        public int LoadUsCensusData(string path)
+        {
+            DataTable usCensusData = new DataTable();
+            IcsvBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+            usCensusData = csvBuilder.LoadData(usCensusData, path);
+            for (int counter = 0; counter < usCensusData.Rows.Count; counter++)
+            {
+                USCensusDAO usCensusDAO = new USCensusDAO();
+                usCensusDAO.stateId = usCensusData.Rows[counter]["StateId"].ToString();
+                usCensusDAO.state = usCensusData.Rows[counter]["State"].ToString();
+                usCensusDAO.population = Convert.ToDouble(usCensusData.Rows[counter]["Population"].ToString());
+                usCensusDAO.housingUnits = Convert.ToDouble(usCensusData.Rows[counter]["Housingunits"].ToString());
+                usCensusDAO.totalArea = Convert.ToDouble(usCensusData.Rows[counter]["Totalarea"].ToString());
+                usCensusDAO.waterArea = Convert.ToDouble(usCensusData.Rows[counter]["Waterarea"].ToString());
+                usCensusDAO.landArea = Convert.ToDouble(usCensusData.Rows[counter]["Landarea"].ToString());
+                usCensusDAO.populationDensity = Convert.ToDouble(usCensusData.Rows[counter]["PopulationDensity"].ToString());
+                usCensusDAO.housingDensity = Convert.ToDouble(usCensusData.Rows[counter]["HousingDensity"].ToString());
+                usCensusList.Add(usCensusDAO);
+            }
+            return usCensusList.Count();
+         }
 
         /// <summary>
         /// This Method is used to check whether the list is empty if empty it will through Exception
@@ -132,5 +160,7 @@ namespace CensusAnalyserApplication
             object listByArea = censusList.OrderBy(x => x.areaInSqKm).Reverse();
             return ListDataToJsonData(listByArea);
         }
+
+        
     }
 }
