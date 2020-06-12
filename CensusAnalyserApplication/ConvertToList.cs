@@ -56,21 +56,21 @@ namespace CensusAnalyserApplication
         /// <param name="usCensusData">Parameter contains the Loaded Data of US Census in DataTable Format</param>
         /// <param name="usCensusList">It returns the Converted data in List Format</param>
         /// <returns></returns>
-        public static List<USCensusDAO> USCensusDataInList(DataTable usCensusData, List<USCensusDAO> usCensusList)
+        public static List<CensusDAO> USCensusDataInList(DataTable usCensusData, List<CensusDAO> usCensusList)
         {
             for (int counter = 0; counter < usCensusData.Rows.Count; counter++)
             {
-                USCensusDAO usCensusDAO = new USCensusDAO();
-                usCensusDAO.stateId = usCensusData.Rows[counter]["StateId"].ToString();
-                usCensusDAO.state = usCensusData.Rows[counter]["State"].ToString();
-                usCensusDAO.population = Convert.ToDouble(usCensusData.Rows[counter]["Population"].ToString());
-                usCensusDAO.housingUnits = Convert.ToDouble(usCensusData.Rows[counter]["Housingunits"].ToString());
-                usCensusDAO.totalArea = Convert.ToDouble(usCensusData.Rows[counter]["Totalarea"].ToString());
-                usCensusDAO.waterArea = Convert.ToDouble(usCensusData.Rows[counter]["Waterarea"].ToString());
-                usCensusDAO.landArea = Convert.ToDouble(usCensusData.Rows[counter]["Landarea"].ToString());
-                usCensusDAO.populationDensity = Convert.ToDouble(usCensusData.Rows[counter]["PopulationDensity"].ToString());
-                usCensusDAO.housingDensity = Convert.ToDouble(usCensusData.Rows[counter]["HousingDensity"].ToString());
-                usCensusList.Add(usCensusDAO);
+                CensusDAO censusDAO = new CensusDAO();
+                censusDAO.stateId = usCensusData.Rows[counter]["StateId"].ToString();
+                censusDAO.state = usCensusData.Rows[counter]["State"].ToString();
+                censusDAO.population = Convert.ToDouble(usCensusData.Rows[counter]["Population"].ToString());
+                censusDAO.housingUnits = Convert.ToDouble(usCensusData.Rows[counter]["Housingunits"].ToString());
+                censusDAO.totalArea = Convert.ToDouble(usCensusData.Rows[counter]["Totalarea"].ToString());
+                censusDAO.waterArea = Convert.ToDouble(usCensusData.Rows[counter]["Waterarea"].ToString());
+                censusDAO.landArea = Convert.ToDouble(usCensusData.Rows[counter]["Landarea"].ToString());
+                censusDAO.populationDensity = Convert.ToDouble(usCensusData.Rows[counter]["PopulationDensity"].ToString());
+                censusDAO.housingDensity = Convert.ToDouble(usCensusData.Rows[counter]["HousingDensity"].ToString());
+                usCensusList.Add(censusDAO);
             }
             return usCensusList;
         }

@@ -8,11 +8,13 @@ namespace CensusAnalyserApplication
 {
     public class CensusAnalyser
     {
+        public enum Country { INDIA, US }
+
         //censusList contains the India Census Data And India State Code Data
         public List<CensusDAO> censusList = new List<CensusDAO>();
-        
+
         //usCensusList contains the US Census Data 
-        public List<USCensusDAO> usCensusList = new List<USCensusDAO>();
+        public List<CensusDAO> usCensusList = new List<CensusDAO>();
         public Dictionary<string, CensusDAO> csvFileMap = new Dictionary<string, CensusDAO>();
 
         /// <summary>
@@ -20,12 +22,9 @@ namespace CensusAnalyserApplication
         /// </summary>
         /// <param name="path">path parameter contains the path of India Census CSV File</param>
         /// <returns>It returns the LoadedData in List</returns>
-        public int LoadIndiaCensusData(string path)
+        public int LoadIndiaCensusData(Country country,string csvFilePath)
         {
-            DataTable csvCensusData = new DataTable();
-            IcsvBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            csvCensusData = csvBuilder.LoadData(csvCensusData, path);
-            censusList = ConvertToList.IndiaCensusDataInList(csvCensusData, censusList);
+            censusList = new CensusAdapterFactory().LoadCensusData(country, csvFilePath);
             return censusList.Count();
         }
 
@@ -34,12 +33,9 @@ namespace CensusAnalyserApplication
         /// </summary>
         /// <param name="path">path parameter contains the path of India StateCode CSV File</param>
         /// <returns>It returns the LoadedData in List</returns>
-        public int LoadIndiaStateCodeData(string path)
+        public int LoadIndiaStateCodeData(Country country, string csvFilePath)
         {
-            DataTable csvStateCodeData = new DataTable();
-            IcsvBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            csvStateCodeData = csvBuilder.LoadData(csvStateCodeData, path);
-            censusList = ConvertToList.IndiaStateDataInList(csvStateCodeData, censusList);
+            censusList = new CensusAdapterFactory().LoadCensusData(country, csvFilePath);
             return censusList.Count();
         }
 
@@ -48,14 +44,11 @@ namespace CensusAnalyserApplication
         /// </summary>
         /// <param name="path">path parameter contains the path of US Census CSV File</param>
         /// <returns>It returns the LoadedData in DataTable format</returns>
-        public int LoadUsCensusData(string path)
+        public int LoadUsCensusData(Country country, string csvFilePath)
         {
-            DataTable usCensusData = new DataTable();
-            IcsvBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            usCensusData = csvBuilder.LoadData(usCensusData, path);
-            usCensusList = ConvertToList.USCensusDataInList(usCensusData, usCensusList);
+            usCensusList = new CensusAdapterFactory().LoadCensusData(country, csvFilePath);
             return usCensusList.Count();
-         }
+        }
 
         /// <summary>
         /// This Method is used to check whether the list is empty if empty it will through Exception
