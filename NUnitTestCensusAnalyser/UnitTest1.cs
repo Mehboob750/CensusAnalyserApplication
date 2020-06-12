@@ -393,5 +393,17 @@ namespace NUnitTestCensusAnalyser
             string sortedData = censusAnalyser.GetPopulationDensityWiseSortedUSCensusData();
             Console.WriteLine(sortedData);
         }
+
+        /// <summary>
+        /// Load the US Census File and Sort the data by Area and result Store in Json Format
+        /// </summary>
+        [Test]
+        public void GivenUSCensusCSVFile__WhenSortedAccordingToArea_ShouldPrintTheSortedResult()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
+            string sortedData = censusAnalyser.GetAreaWiseSortedUSCensusData();
+            Console.WriteLine(sortedData);
+        }
     }
 }

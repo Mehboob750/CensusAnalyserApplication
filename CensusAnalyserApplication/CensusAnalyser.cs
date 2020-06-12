@@ -141,8 +141,8 @@ namespace CensusAnalyserApplication
         public string GetPopulationWiseSortedUSCensusData()
         {
             CheckListEmpty(usCensusList);
-            object listByArea = usCensusList.OrderBy(x => x.population).Reverse();
-            return ListDataToJsonData(listByArea);
+            object listByPopulation = usCensusList.OrderBy(x => x.population).Reverse();
+            return ListDataToJsonData(listByPopulation);
         }
 
         /// <summary>
@@ -152,7 +152,18 @@ namespace CensusAnalyserApplication
         public string GetPopulationDensityWiseSortedUSCensusData()
         {
             CheckListEmpty(usCensusList);
-            object listByArea = usCensusList.OrderBy(x => x.populationDensity).Reverse();
+            object listByPopulationDensity = usCensusList.OrderBy(x => x.populationDensity).Reverse();
+            return ListDataToJsonData(listByPopulationDensity);
+        }
+
+        /// <summary>
+        /// This Method is used to sort the US census Data by Area
+        /// </summary>
+        /// <returns>It returns the Sorted List to ListDataToJsonData Method</returns>
+        public string GetAreaWiseSortedUSCensusData()
+        {
+            CheckListEmpty(usCensusList);
+            object listByArea = usCensusList.OrderBy(x => x.totalArea).Reverse();
             return ListDataToJsonData(listByArea);
         }
     }
