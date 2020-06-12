@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using NUnit.Framework;
 
 namespace CensusAnalyserApplication
 {
@@ -20,9 +21,16 @@ namespace CensusAnalyserApplication
         /// <returns>If path matches According to that method is return</returns>
         public List<CensusDAO> LoadCensusData(string csvFilePath)
         {
-            if (csvFilePath.Contains("IndiaStateCode"))
-                return this.LoadIndiaStateCodeData(csvFilePath);
-            return this.LoadIndiaCensusData(csvFilePath);
+            try
+            {
+                if (csvFilePath.Contains("IndiaStateCode"))
+                    return this.LoadIndiaStateCodeData(csvFilePath);
+                return this.LoadIndiaCensusData(csvFilePath);
+            }
+            catch(NullReferenceException e)
+            {
+                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.ValueCanNotBeNull, e.Message);
+            }
         }
 
         /// <summary>

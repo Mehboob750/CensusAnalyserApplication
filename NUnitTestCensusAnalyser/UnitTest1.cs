@@ -10,17 +10,17 @@ namespace NUnitTestCensusAnalyser
         [SetUp]
         public void Setup()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
+
         }
 
         /// <summary>
         /// Used string variables to store the csv file paths
         /// </summary>
-        public static string INDIA_CENSUS_CSV_FILE_PATH = @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\IndiaStateCensusData.csv";
-        public static string INCORRECT_FILE_CSV_FILE_PATH = @"IndiaStateCensus.csv";
-        public static string INCORRECT_Type_PATH = @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\IndiaStateCensusData.MP4";
-        public static string INDIA_StateCode_CSV_FILE_PATH = @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\IndiaStateCode.csv";
-        public static string US_CENSUS_CSV_FILE_PATH= @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\USCensusData.csv";
+        public static string IndiaCensusCsvFilePath = @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\IndiaStateCensusData.csv";
+        public static string IncorrcectFilePath = @"IndiaStateCensus.csv";
+        public static string IncorrectExtensionTypePath = @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\IndiaStateCensusData.MP4";
+        public static string IndiaStateCodeCsvFilePath = @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\IndiaStateCode.csv";
+        public static string USCensusCsvFilePath= @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\USCensusData.csv";
 
         /// <summary>
         /// Load the Indian Census File and Check For the number of records present in the file
@@ -28,7 +28,8 @@ namespace NUnitTestCensusAnalyser
         [Test]
         public void GivenIndianCensusCSVFile_WhenLoaded_ShouldReturnCorrectRecord()
         {
-            int numberOfRecords = censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,INDIA_CENSUS_CSV_FILE_PATH);
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            int numberOfRecords = censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,IndiaCensusCsvFilePath);
             Assert.AreEqual(29, numberOfRecords);
         }
 
@@ -41,7 +42,7 @@ namespace NUnitTestCensusAnalyser
             try
             {
                 CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,INCORRECT_FILE_CSV_FILE_PATH);
+                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,IncorrcectFilePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -58,7 +59,7 @@ namespace NUnitTestCensusAnalyser
             try
             {
                 CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, INCORRECT_Type_PATH);
+                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, IncorrectExtensionTypePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -75,7 +76,7 @@ namespace NUnitTestCensusAnalyser
             try
             {
                 CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,INDIA_CENSUS_CSV_FILE_PATH);
+                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,IndiaCensusCsvFilePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -92,7 +93,7 @@ namespace NUnitTestCensusAnalyser
             try
             {
                 CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,INDIA_CENSUS_CSV_FILE_PATH);
+                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,IndiaCensusCsvFilePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -124,7 +125,7 @@ namespace NUnitTestCensusAnalyser
         public void GivenIndianStateCodeCSVFile_WhenLoaded_ShouldReturnCorrectRecord()
         {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
-            int numberOfRecords= censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA,INDIA_StateCode_CSV_FILE_PATH);
+            int numberOfRecords= censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA,IndiaStateCodeCsvFilePath);
             Assert.AreEqual(37, numberOfRecords);
         }
 
@@ -137,7 +138,7 @@ namespace NUnitTestCensusAnalyser
             try
             {
                 CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA,INCORRECT_FILE_CSV_FILE_PATH);
+                censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA,IncorrcectFilePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -154,7 +155,7 @@ namespace NUnitTestCensusAnalyser
             try
             {
                 CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA,INCORRECT_Type_PATH);
+                censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA,IncorrectExtensionTypePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -171,7 +172,7 @@ namespace NUnitTestCensusAnalyser
             try
             {
                 CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA,INDIA_StateCode_CSV_FILE_PATH);
+                censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA,IndiaStateCodeCsvFilePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -188,7 +189,7 @@ namespace NUnitTestCensusAnalyser
             try
             {
                 CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA,INDIA_StateCode_CSV_FILE_PATH);
+                censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA,IndiaStateCodeCsvFilePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -220,7 +221,7 @@ namespace NUnitTestCensusAnalyser
         public void GivenIndianCensusCSVFile__WhenSortedAccordingToState_ShouldPrintTheSortedResult()
         {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,INDIA_CENSUS_CSV_FILE_PATH);
+            censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,IndiaCensusCsvFilePath);
             string sortedData= censusAnalyser.GetStateWiseSortedCensusData();
             Console.WriteLine(sortedData);
         }
@@ -232,7 +233,7 @@ namespace NUnitTestCensusAnalyser
         public void GivenIndianCensusCSVFile__WhenSortedAccordingToStateCode_ShouldPrintTheSortedResult()
         {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA,INDIA_StateCode_CSV_FILE_PATH);
+            censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA,IndiaStateCodeCsvFilePath);
             string sortedData = censusAnalyser.GetStateCodeWiseSortedCensusData();
             Console.WriteLine(sortedData);
         }
@@ -244,7 +245,7 @@ namespace NUnitTestCensusAnalyser
         public void GivenIndianCensusCSVFile__WhenSortedAccordingToPopulation_ShouldPrintTheSortedResult()
         {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,INDIA_CENSUS_CSV_FILE_PATH);
+            censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,IndiaCensusCsvFilePath);
             string sortedData = censusAnalyser.GetPopulationWiseSortedCensusData();
             Console.WriteLine(sortedData);
         }
@@ -256,7 +257,7 @@ namespace NUnitTestCensusAnalyser
         public void GivenIndianCensusCSVFile__WhenSortedAccordingToPopulationDensity_ShouldPrintTheSortedResult()
         {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,INDIA_CENSUS_CSV_FILE_PATH);
+            censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,IndiaCensusCsvFilePath);
             string sortedData = censusAnalyser.GetPopulationDensityWiseSortedCensusData();
             Console.WriteLine(sortedData);
         }
@@ -268,7 +269,7 @@ namespace NUnitTestCensusAnalyser
         public void GivenIndianCensusCSVFile__WhenSortedAccordingToArea_ShouldPrintTheSortedResult()
         {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,INDIA_CENSUS_CSV_FILE_PATH);
+            censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,IndiaCensusCsvFilePath);
             string sortedData = censusAnalyser.GetAreaWiseSortedCensusData();
             Console.WriteLine(sortedData);
         }
@@ -280,8 +281,94 @@ namespace NUnitTestCensusAnalyser
         public void GiveUsCensusCSVFile_WhenLoaded_ShouldReturnCorrectRecord()
         {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
-            int numberOfRecords = censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US,US_CENSUS_CSV_FILE_PATH);
+            int numberOfRecords = censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US,USCensusCsvFilePath);
             Assert.AreEqual(51, numberOfRecords);
         }
+
+        /// <summary>
+        /// Given incorrect file path to load the data should throw exception
+        /// </summary>
+        [Test]
+        public void GivenUSIncorrectFile_WhenLoaded_ShouldThrowCustomException()
+        {
+            try
+            {
+                CensusAnalyser censusAnalyser = new CensusAnalyser();
+                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.US, IncorrcectFilePath);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.CensusFileProblem, e.type);
+            }
+        }
+
+        /// <summary>
+        /// Given file path with incorrect extension type to load the data should throw exception
+        /// </summary>
+        [Test]
+        public void GivenUSCensusCSVFile__WhenTypeIncorrect_ShouldThrowCustomException()
+        {
+            try
+            {
+                CensusAnalyser censusAnalyser = new CensusAnalyser();
+                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.US, IncorrectExtensionTypePath);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.CensusFileProblem, e.type);
+            }
+        }
+
+        /// <summary>
+        /// Given file with incorrect Delimeter to load the data should throw exception
+        /// </summary>
+        [Test]
+        public void GivenUSCensusCSVFile__WhenDelimeterIncorrect_ShouldThrowCustomException()
+        {
+            try
+            {
+                CensusAnalyser censusAnalyser = new CensusAnalyser();
+                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.CensusFileProblem, e.type);
+            }
+        }
+
+        /// <summary>
+        /// Given file with incorrect header to load the data should throw exception
+        /// </summary>
+        [Test]
+        public void GivenUSCensusCSVFile__WhenHeaderIncorrect_ShouldThrowCustomException()
+        {
+            try
+            {
+                CensusAnalyser censusAnalyser = new CensusAnalyser();
+                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.IncorrectHeader, e.type);
+            }
+        }
+
+        /// <summary>
+        /// Load the Indian Census File and if it contains NUll it throws Custom Exception
+        /// </summary>
+        [Test]
+        public void GivenFileNull_WhenLoaded_ShouldThrowCustomException()
+        {
+            try
+            {
+                CensusAnalyser censusAnalyser = new CensusAnalyser();
+                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.US, null);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.ValueCanNotBeNull, e.type);
+            }
+        }
+
     }
 }

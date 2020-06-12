@@ -15,12 +15,14 @@ namespace CensusAnalyserApplication
         /// <returns>It returns the Adapter Class Based On Country</returns>
         public List<CensusDAO> LoadCensusData(CensusAnalyser.Country country, string csvFilePath)
         {
+            //Check the country is Equal to India or US
             if (country.Equals(CensusAnalyser.Country.INDIA))
                 return new IndiaCensusAdapter().LoadCensusData(csvFilePath);
             else if (country.Equals(CensusAnalyser.Country.US))
                 return new USCensusAdapter().LoadUSCensusData(csvFilePath);
+            //If country is Other than India and US then throw Exception
             else
-                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.INVALID_COUNTRY, "Invalid Country");
+                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.InvalidCountry, "Invalid Country");
         }
     }
 }

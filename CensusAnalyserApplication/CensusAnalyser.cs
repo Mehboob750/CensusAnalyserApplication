@@ -59,6 +59,7 @@ namespace CensusAnalyserApplication
         /// <returns>if it has data it returns true</returns>
         public bool CheckListEmpty(List<CensusDAO> censusList)
         {
+            //Check if List is Empty or Null
             if (censusList == null || censusList.Count() == 0)
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.UnableToParse, "No Census Data");
             return true;
@@ -71,6 +72,7 @@ namespace CensusAnalyserApplication
         /// <returns>It returns the Data in Json Format</returns>
         public string ListDataToJsonData(object list)
         {
+            //Serialize the List to the Json Format
             string dataInJsonFormat = JsonConvert.SerializeObject(list);
             return dataInJsonFormat;
         }
@@ -82,6 +84,7 @@ namespace CensusAnalyserApplication
         public string GetStateWiseSortedCensusData()
         {
             CheckListEmpty(censusList);
+            //Sort list by using OrderBy Method
             object listAlphabetically = censusList.OrderBy(x => x.state);
             return ListDataToJsonData(listAlphabetically);
         }
@@ -93,7 +96,8 @@ namespace CensusAnalyserApplication
         public string GetStateCodeWiseSortedCensusData()
         {
             CheckListEmpty(censusList);
-            object listByState = censusList.OrderBy(x => x.state);
+            //Sort list by using OrderBy Method
+            object listByState = censusList.OrderBy(x => x.stateCode);
             return ListDataToJsonData(listByState);
         }
 

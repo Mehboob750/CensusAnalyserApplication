@@ -24,6 +24,7 @@ namespace CensusAnalyserApplication
                     {
                         csvData.Columns.Add(header);
                     }
+                    //While Loop is used to iterate through csv File
                     while (!csvReader.EndOfStream)
                     {
                         string[] rows = csvReader.ReadLine().Split(',');

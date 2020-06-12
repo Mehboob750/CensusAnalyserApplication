@@ -18,6 +18,7 @@ namespace CensusAnalyserApplication
         /// <returns>It returns the Converted data in List Format</returns>
         public static List<CensusDAO> IndiaCensusDataInList(DataTable csvCensusData,List<CensusDAO> censusList)
         {
+            //For Loop is Used To Iterate through DataTable
             for (int counter = 0; counter < csvCensusData.Rows.Count; counter++)
             {
                 CensusDAO censusDAO = new CensusDAO();
@@ -38,6 +39,7 @@ namespace CensusAnalyserApplication
         /// <returns>It returns the Converted data in List Format</returns>
         public static List<CensusDAO> IndiaStateDataInList(DataTable csvStateCodeData, List<CensusDAO> censusList)
         {
+            //For Loop is Used To Iterate through DataTable
             for (int counter = 0; counter < csvStateCodeData.Rows.Count; counter++)
             {
                 CensusDAO censusDAO = new CensusDAO();
@@ -58,6 +60,7 @@ namespace CensusAnalyserApplication
         /// <returns></returns>
         public static List<CensusDAO> USCensusDataInList(DataTable usCensusData, List<CensusDAO> usCensusList)
         {
+            //For Loop is Used To Iterate through DataTable
             for (int counter = 0; counter < usCensusData.Rows.Count; counter++)
             {
                 CensusDAO censusDAO = new CensusDAO();

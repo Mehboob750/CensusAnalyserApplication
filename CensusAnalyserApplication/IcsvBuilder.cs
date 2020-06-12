@@ -7,6 +7,7 @@ namespace CensusAnalyserApplication
     /// </summary>
     public interface IcsvBuilder
     {
+        //Accecc LoadData Method Globally
         public DataTable LoadData(DataTable csvData, string path);
     }
 }
