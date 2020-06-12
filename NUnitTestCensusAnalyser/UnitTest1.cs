@@ -294,7 +294,7 @@ namespace NUnitTestCensusAnalyser
             try
             {
                 CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.US, IncorrcectFilePath);
+                censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, IncorrcectFilePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -311,7 +311,7 @@ namespace NUnitTestCensusAnalyser
             try
             {
                 CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.US, IncorrectExtensionTypePath);
+                censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, IncorrectExtensionTypePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -328,7 +328,7 @@ namespace NUnitTestCensusAnalyser
             try
             {
                 CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
+                censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -345,7 +345,7 @@ namespace NUnitTestCensusAnalyser
             try
             {
                 CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
+                censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -362,7 +362,7 @@ namespace NUnitTestCensusAnalyser
             try
             {
                 CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.US, null);
+                censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, null);
             }
             catch (CensusAnalyserException e)
             {
@@ -370,5 +370,16 @@ namespace NUnitTestCensusAnalyser
             }
         }
 
+        /// <summary>
+        /// Load the US Census File and Sort the data by Population and result Store in Json Format
+        /// </summary>
+        [Test]
+        public void GivenUSCensusCSVFile__WhenSortedAccordingToPopulation_ShouldPrintTheSortedResult()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
+            string sortedData = censusAnalyser.GetPopulationWiseSortedUSCensusData();
+            Console.WriteLine(sortedData);
+        }
     }
 }

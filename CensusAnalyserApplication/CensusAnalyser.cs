@@ -69,7 +69,7 @@ namespace CensusAnalyserApplication
         /// This Method is used to Convert the Sorted List Data into Json Data Format
         /// </summary>
         /// <param name="list">Parameter List Contains the sorted result </param>
-        /// <returns>It returns the Data in Json Format</returns>
+        /// <returns>It returns the Sorted Data in Json Format</returns>
         public string ListDataToJsonData(object list)
         {
             //Serialize the List to the Json Format
@@ -134,6 +134,15 @@ namespace CensusAnalyserApplication
             return ListDataToJsonData(listByArea);
         }
 
-        
+        /// <summary>
+        /// This Method is used to sort the US census Data by Population
+        /// </summary>
+        /// <returns>It returns the Sorted List to ListDataToJsonData Method</returns>
+        public string GetPopulationWiseSortedUSCensusData()
+        {
+            CheckListEmpty(usCensusList);
+            object listByArea = usCensusList.OrderBy(x => x.population).Reverse();
+            return ListDataToJsonData(listByArea);
+        }
     }
 }
