@@ -8,7 +8,7 @@ namespace CensusAnalyserApplication
 {
     public class CensusAnalyser
     {
-        public List<IndiaCensusCSV> censusList = new List<IndiaCensusCSV>();
+        public List<CensusDAO> censusList = new List<CensusDAO>();
         public List<IndiaStateCodeCSV> stateCodeList = new List<IndiaStateCodeCSV>();
         public Dictionary<string, CensusDAO> csvFileMap = new Dictionary<string, CensusDAO>();
 
@@ -24,15 +24,14 @@ namespace CensusAnalyserApplication
             csvCensusData = csvBuilder.LoadData(csvCensusData, path);
             for (int counter = 0; counter < csvCensusData.Rows.Count; counter++)
             {
-                IndiaCensusCSV indiaCensus = new IndiaCensusCSV();
-                indiaCensus.State = csvCensusData.Rows[counter]["State"].ToString();
-                indiaCensus.Population = Convert.ToInt32(csvCensusData.Rows[counter]["Population"].ToString());
-                indiaCensus.DensityPerSqKm = Convert.ToInt32(csvCensusData.Rows[counter]["DensityPerSqKm"].ToString());
-                indiaCensus.AreaInSqKm = Convert.ToInt32(csvCensusData.Rows[counter]["AreaInSqKm"].ToString());
-                censusList.Add(indiaCensus);
+                CensusDAO censusDAO = new CensusDAO();
+                censusDAO.state = csvCensusData.Rows[counter]["State"].ToString();
+                censusDAO.population = Convert.ToInt32(csvCensusData.Rows[counter]["Population"].ToString());
+                censusDAO.densityPerSqKm = Convert.ToInt32(csvCensusData.Rows[counter]["DensityPerSqKm"].ToString());
+                censusDAO.areaInSqKm = Convert.ToInt32(csvCensusData.Rows[counter]["AreaInSqKm"].ToString());
+                censusList.Add(censusDAO);
             }
-            foreach (censusList->csvFileMap.put(censusList.state, new CensusDAO(censusList)));
-            return csvFileMap.Count();
+            return censusList.Count();
         }
 
         /// <summary>
@@ -47,32 +46,40 @@ namespace CensusAnalyserApplication
             csvStateCodeData = csvBuilder.LoadData(csvStateCodeData, path);
             for (int counter = 0; counter < csvStateCodeData.Rows.Count; counter++)
             {
-                IndiaStateCodeCSV indiaStateCode = new IndiaStateCodeCSV();
-                indiaStateCode.SrNo = Convert.ToInt32(csvStateCodeData.Rows[counter]["SrNo"].ToString());
-                indiaStateCode.StateName = csvStateCodeData.Rows[counter]["StateName"].ToString();
-                indiaStateCode.TIN = Convert.ToInt32(csvStateCodeData.Rows[counter]["TIN"].ToString());
-                indiaStateCode.StateCode = csvStateCodeData.Rows[counter]["StateCode"].ToString();
-                stateCodeList.Add(indiaStateCode);
+                CensusDAO censusDAO = new CensusDAO();
+                censusDAO.srNo = Convert.ToInt32(csvStateCodeData.Rows[counter]["SrNo"].ToString());
+                censusDAO.state = csvStateCodeData.Rows[counter]["StateName"].ToString();
+                censusDAO.tin = Convert.ToInt32(csvStateCodeData.Rows[counter]["TIN"].ToString());
+                censusDAO.stateCode = csvStateCodeData.Rows[counter]["StateCode"].ToString();
+                censusList.Add(censusDAO);
             }
-            foreach (stateCodeList->csvFileMap.put(censusList.state, new CensusDAO(stateCodeList))) ;
-            return csvFileMap.Count();
+            return censusList.Count();
         }
 
         public string GetStateWiseSortedCensusData()
         {
-            if (csvFileMap == null || csvFileMap.Count() == 0)
+            if (censusList == null || censusList.Count() == 0)
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.UnableToParse, "No Census Data");
-            object listAlphabetically = censusList.OrderBy(x => x.State);
+            object listAlphabetically = censusList.OrderBy(x => x.state);
             string dataInJsonFormat = JsonConvert.SerializeObject(listAlphabetically);
             return dataInJsonFormat;
         }
 
         public string GetStateCodeWiseSortedCensusData()
         {
-            if (csvFileMap == null || csvFileMap.Count() == 0)
+            if (censusList == null || censusList.Count() == 0)
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.UnableToParse, "No Census Data");
-            object listAlphabetically = stateCodeList.OrderBy(x => x.StateCode);
+            object listAlphabetically = censusList.OrderBy(x => x.stateCode);
             string dataInJsonFormat = JsonConvert.SerializeObject(listAlphabetically);
+            return dataInJsonFormat;
+        }
+
+        public string GetPopulationWiseSortedCensusData()
+        {
+            if (censusList == null || censusList.Count() == 0)
+                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.UnableToParse, "No Census Data");
+            object listByPopulation = censusList.OrderBy(x => x.population);
+            string dataInJsonFormat = JsonConvert.SerializeObject(listByPopulation);
             return dataInJsonFormat;
         }
     }

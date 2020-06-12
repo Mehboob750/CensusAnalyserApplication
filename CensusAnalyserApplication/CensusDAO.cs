@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace CensusAnalyserApplication
+{ 
     public class CensusDAO
     {
         public String state;
@@ -12,7 +13,15 @@ namespace CensusAnalyserApplication
         public double totalArea;
         public double populationDensity;
         public String stateId;
+        public String stateCode;
+        public double tin;
+        public double srNo;
 
+
+
+        public CensusDAO()
+        {
+        }
 
         public CensusDAO(IndiaCensusCSV indiaCensusCSV)
         {
