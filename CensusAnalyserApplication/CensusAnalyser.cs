@@ -144,5 +144,16 @@ namespace CensusAnalyserApplication
             object listByArea = usCensusList.OrderBy(x => x.population).Reverse();
             return ListDataToJsonData(listByArea);
         }
+
+        /// <summary>
+        /// This Method is used to sort the US census Data by Population Density
+        /// </summary>
+        /// <returns>It returns the Sorted List to ListDataToJsonData Method</returns>
+        public string GetPopulationDensityWiseSortedUSCensusData()
+        {
+            CheckListEmpty(usCensusList);
+            object listByArea = usCensusList.OrderBy(x => x.populationDensity).Reverse();
+            return ListDataToJsonData(listByArea);
+        }
     }
 }
