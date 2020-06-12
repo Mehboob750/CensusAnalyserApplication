@@ -10,8 +10,6 @@ namespace CensusAnalyserApplication
         public double population;
         public double densityPerSqKm;
         public double areaInSqKm;
-        public double totalArea;
-        public double populationDensity;
         public String stateId;
         public String stateCode;
         public double tin;

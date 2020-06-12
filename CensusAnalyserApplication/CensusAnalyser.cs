@@ -86,7 +86,7 @@ namespace CensusAnalyserApplication
         {
             if (censusList == null || censusList.Count() == 0)
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.UnableToParse, "No Census Data");
-            object listByPopulationDensity = censusList.OrderBy(x => x.populationDensity);
+            object listByPopulationDensity = censusList.OrderBy(x => x.densityPerSqKm).Reverse();
             string dataInJsonFormat = JsonConvert.SerializeObject(listByPopulationDensity);
             return dataInJsonFormat;
         }
@@ -96,7 +96,7 @@ namespace CensusAnalyserApplication
             if (censusList == null || censusList.Count() == 0)
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.UnableToParse, "No Census Data");
             object listByArea = censusList.OrderBy(x => x.areaInSqKm).Reverse();
-            string dataInJsonFormat = JsonConvert.SerializeObject(listByArea);
+            string dataInJsonFormat= JsonConvert.SerializeObject(listByArea);
             return dataInJsonFormat;
         }
     }
