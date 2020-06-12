@@ -8,7 +8,10 @@ namespace CensusAnalyserApplication
 {
     public class CensusAnalyser
     {
+        //censusList contains the India Census Data And India State Code Data
         public List<CensusDAO> censusList = new List<CensusDAO>();
+        
+        //usCensusList contains the US Census Data 
         public List<USCensusDAO> usCensusList = new List<USCensusDAO>();
         public Dictionary<string, CensusDAO> csvFileMap = new Dictionary<string, CensusDAO>();
 
@@ -22,15 +25,7 @@ namespace CensusAnalyserApplication
             DataTable csvCensusData = new DataTable();
             IcsvBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             csvCensusData = csvBuilder.LoadData(csvCensusData, path);
-            for (int counter = 0; counter < csvCensusData.Rows.Count; counter++)
-            {
-                CensusDAO censusDAO = new CensusDAO();
-                censusDAO.state = csvCensusData.Rows[counter]["State"].ToString();
-                censusDAO.population = Convert.ToInt32(csvCensusData.Rows[counter]["Population"].ToString());
-                censusDAO.densityPerSqKm = Convert.ToInt32(csvCensusData.Rows[counter]["DensityPerSqKm"].ToString());
-                censusDAO.areaInSqKm = Convert.ToInt32(csvCensusData.Rows[counter]["AreaInSqKm"].ToString());
-                censusList.Add(censusDAO);
-            }
+            censusList = ConvertToList.IndiaCensusDataInList(csvCensusData, censusList);
             return censusList.Count();
         }
 
@@ -44,15 +39,7 @@ namespace CensusAnalyserApplication
             DataTable csvStateCodeData = new DataTable();
             IcsvBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             csvStateCodeData = csvBuilder.LoadData(csvStateCodeData, path);
-            for (int counter = 0; counter < csvStateCodeData.Rows.Count; counter++)
-            {
-                CensusDAO censusDAO = new CensusDAO();
-                censusDAO.srNo = Convert.ToInt32(csvStateCodeData.Rows[counter]["SrNo"].ToString());
-                censusDAO.state = csvStateCodeData.Rows[counter]["StateName"].ToString();
-                censusDAO.tin = Convert.ToInt32(csvStateCodeData.Rows[counter]["TIN"].ToString());
-                censusDAO.stateCode = csvStateCodeData.Rows[counter]["StateCode"].ToString();
-                censusList.Add(censusDAO);
-            }
+            censusList = ConvertToList.IndiaStateDataInList(csvStateCodeData, censusList);
             return censusList.Count();
         }
 
@@ -66,20 +53,7 @@ namespace CensusAnalyserApplication
             DataTable usCensusData = new DataTable();
             IcsvBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             usCensusData = csvBuilder.LoadData(usCensusData, path);
-            for (int counter = 0; counter < usCensusData.Rows.Count; counter++)
-            {
-                USCensusDAO usCensusDAO = new USCensusDAO();
-                usCensusDAO.stateId = usCensusData.Rows[counter]["StateId"].ToString();
-                usCensusDAO.state = usCensusData.Rows[counter]["State"].ToString();
-                usCensusDAO.population = Convert.ToDouble(usCensusData.Rows[counter]["Population"].ToString());
-                usCensusDAO.housingUnits = Convert.ToDouble(usCensusData.Rows[counter]["Housingunits"].ToString());
-                usCensusDAO.totalArea = Convert.ToDouble(usCensusData.Rows[counter]["Totalarea"].ToString());
-                usCensusDAO.waterArea = Convert.ToDouble(usCensusData.Rows[counter]["Waterarea"].ToString());
-                usCensusDAO.landArea = Convert.ToDouble(usCensusData.Rows[counter]["Landarea"].ToString());
-                usCensusDAO.populationDensity = Convert.ToDouble(usCensusData.Rows[counter]["PopulationDensity"].ToString());
-                usCensusDAO.housingDensity = Convert.ToDouble(usCensusData.Rows[counter]["HousingDensity"].ToString());
-                usCensusList.Add(usCensusDAO);
-            }
+            usCensusList = ConvertToList.USCensusDataInList(usCensusData, usCensusList);
             return usCensusList.Count();
          }
 
