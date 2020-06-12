@@ -17,19 +17,8 @@ namespace CensusAnalyserApplication
         public double tin;
         public double srNo;
 
-
-
         public CensusDAO()
         {
         }
-
-        public CensusDAO(IndiaCensusCSV indiaCensusCSV)
-        {
-            state = indiaCensusCSV.State;
-            areaInSqKm = indiaCensusCSV.AreaInSqKm;
-            populationDensity = indiaCensusCSV.DensityPerSqKm;
-            population = indiaCensusCSV.Population;
-        }
-
     }
 }

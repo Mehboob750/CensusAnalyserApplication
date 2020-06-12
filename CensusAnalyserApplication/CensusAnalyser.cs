@@ -9,7 +9,6 @@ namespace CensusAnalyserApplication
     public class CensusAnalyser
     {
         public List<CensusDAO> censusList = new List<CensusDAO>();
-        public List<IndiaStateCodeCSV> stateCodeList = new List<IndiaStateCodeCSV>();
         public Dictionary<string, CensusDAO> csvFileMap = new Dictionary<string, CensusDAO>();
 
         /// <summary>
@@ -82,5 +81,6 @@ namespace CensusAnalyserApplication
             string dataInJsonFormat = JsonConvert.SerializeObject(listByPopulation);
             return dataInJsonFormat;
         }
+       
     }
 }
