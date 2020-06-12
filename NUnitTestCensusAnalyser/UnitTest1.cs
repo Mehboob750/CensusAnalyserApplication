@@ -100,6 +100,23 @@ namespace NUnitTestCensusAnalyser
         }
 
         /// <summary>
+        /// Load the Indian Census File and if it contains NUll it throws Custom Exception
+        /// </summary>
+        [Test]
+        public void GivenNull_WhenLoaded_ShouldThrowCustomException()
+        {
+            try
+            {
+                CensusAnalyser censusAnalyser = new CensusAnalyser();
+                censusAnalyser.LoadIndiaCensusData(null);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.ValueCanNotBeNull, e.type);
+            }
+        }
+
+        /// <summary>
         /// Load the Indian StateCode File and Check For the number of records present in the file
         /// </summary>
         [Test]
@@ -175,6 +192,23 @@ namespace NUnitTestCensusAnalyser
             catch (CensusAnalyserException e)
             {
                 Assert.AreEqual(CensusAnalyserException.ExceptionType.IncorrectHeader, e.type);
+            }
+        }
+
+        /// <summary>
+        /// Load the Indian Census File and if it contains NUll it throws Custom Exception
+        /// </summary>
+        [Test]
+        public void GivenStateCodeNull_WhenLoaded_ShouldThrowCustomException()
+        {
+            try
+            {
+                CensusAnalyser censusAnalyser = new CensusAnalyser();
+                censusAnalyser.LoadIndiaStateCodeData(null);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.ValueCanNotBeNull, e.type);
             }
         }
 

@@ -44,6 +44,10 @@ namespace CensusAnalyserApplication
             {
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.IncorrectHeader, e.Message);
             }
+            catch (ArgumentNullException e)
+            {
+                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.ValueCanNotBeNull, e.Message);
+            }
             return csvData;
         }
     }

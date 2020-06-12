@@ -17,7 +17,7 @@ namespace CensusAnalyserApplication
         /// </summary>
         public enum ExceptionType
         {
-            CensusFileProblem, IncorrectHeader, UnableToParse
+            CensusFileProblem, IncorrectHeader, UnableToParse, ValueCanNotBeNull
         }
 
         public ExceptionType type { get; set; }
