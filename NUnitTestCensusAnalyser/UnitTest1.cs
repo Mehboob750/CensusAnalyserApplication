@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using CensusAnalyserApplication;
+using Nancy.Json;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace NUnitTestCensusAnalyser
@@ -12,6 +15,8 @@ namespace NUnitTestCensusAnalyser
         {
 
         }
+
+        public CensusAnalyser censusAnalyser = new CensusAnalyser();
 
         /// <summary>
         /// Used string variables to store the csv file paths
@@ -215,63 +220,133 @@ namespace NUnitTestCensusAnalyser
         }
 
         /// <summary>
-        /// Load the Indian Census File and Sort the data by State Name and result Store in Json Format
+        /// Load the Indian Census File and Sort the data by State Name and Largest State by State Name
         /// </summary>
         [Test]
-        public void GivenIndianCensusCSVFile__WhenSortedAccordingToState_ShouldPrintTheSortedResult()
+        public void GivenIndianCensusCSVFile__WhenSortedAccordingToState_ShouldReturnTheLargestState()
         {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,IndiaCensusCsvFilePath);
             string sortedData= censusAnalyser.GetStateWiseSortedCensusData();
-            Console.WriteLine(sortedData);
+            List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
+            Assert.AreEqual("Andhra Pradesh", sortedList[0].state);
         }
 
         /// <summary>
-        /// Load the Indian State Code File and Sort the data by State Code and result Store in Json Format
+        /// Load the Indian Census File and Sort the data by State Name and Smallest State by State Name
         /// </summary>
         [Test]
-        public void GivenIndianCensusCSVFile__WhenSortedAccordingToStateCode_ShouldPrintTheSortedResult()
+        public void GivenIndianCensusCSVFile__WhenSortedAccordingToState_ShouldReturnTheSmallestState()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, IndiaCensusCsvFilePath);
+            string sortedData = censusAnalyser.GetStateWiseSortedCensusData();
+            List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
+            Assert.AreEqual("West Bengal", sortedList[28].state);
+        }
+
+        /// <summary>
+        /// Load the Indian State Code File and Sort the data by State Code and Largest State by State Code
+        /// </summary>
+        [Test]
+        public void GivenIndianStateCodeCSVFile__WhenSortedAccordingToStateCode_ShouldReturnTheLargestState()
         {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA,IndiaStateCodeCsvFilePath);
             string sortedData = censusAnalyser.GetStateCodeWiseSortedCensusData();
-            Console.WriteLine(sortedData);
+            List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
+            Assert.AreEqual("Andhra Pradesh New", sortedList[0].state);
         }
 
         /// <summary>
-        /// Load the Indian Census File and Sort the data by Population and result Store in Json Format
+        /// Load the Indian State Code File and Sort the data by State Code and Largest State by State Code
         /// </summary>
         [Test]
-        public void GivenIndianCensusCSVFile__WhenSortedAccordingToPopulation_ShouldPrintTheSortedResult()
+        public void GivenIndianStateCodeCSVFile__WhenSortedAccordingToStateCode_ShouldReturnTheSmallestState()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA, IndiaStateCodeCsvFilePath);
+            string sortedData = censusAnalyser.GetStateCodeWiseSortedCensusData();
+            List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
+            Assert.AreEqual("West Bengal", sortedList[36].state);
+        }
+
+        /// <summary>
+        /// Load the Indian Census File and Sort the data by Population and returns the Largest State by Population
+        /// </summary>
+        [Test]
+        public void GivenIndianCensusCSVFile__WhenSortedAccordingToPopulation_ShouldReturnTheLargestState()
         {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,IndiaCensusCsvFilePath);
             string sortedData = censusAnalyser.GetPopulationWiseSortedCensusData();
-            Console.WriteLine(sortedData);
+            List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
+            Assert.AreEqual("Uttar Pradesh", sortedList[0].state);
         }
 
         /// <summary>
-        /// Load the Indian Census File and Sort the data by Population Density and result Store in Json Format
+        /// Load the Indian Census File and Sort the data by Population and returns the Smallest State by Population
         /// </summary>
         [Test]
-        public void GivenIndianCensusCSVFile__WhenSortedAccordingToPopulationDensity_ShouldPrintTheSortedResult()
+        public void GivenIndianCensusCSVFile__WhenSortedAccordingToPopulation_ShouldReturnTheSmallestState()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, IndiaCensusCsvFilePath);
+            string sortedData = censusAnalyser.GetPopulationWiseSortedCensusData();
+            List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
+            Assert.AreEqual("Sikkim", sortedList[28].state);
+        }
+
+        /// <summary>
+        /// Load the Indian Census File and Sort the data by Population Density and returns the Largest State by Population Density
+        /// </summary>
+        [Test]
+        public void GivenIndianCensusCSVFile__WhenSortedAccordingToPopulationDensity_ShouldReturnTheLargestState()
         {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,IndiaCensusCsvFilePath);
             string sortedData = censusAnalyser.GetPopulationDensityWiseSortedCensusData();
-            Console.WriteLine(sortedData);
+            List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
+            Assert.AreEqual("Bihar", sortedList[0].state);
         }
 
         /// <summary>
-        /// Load the Indian Census File and Sort the data by AreaPerInSqKm and result Store in Json Format
+        /// Load the Indian Census File and Sort the data by Population Density and returns the Smallest State by Population Density
         /// </summary>
         [Test]
-        public void GivenIndianCensusCSVFile__WhenSortedAccordingToArea_ShouldPrintTheSortedResult()
+        public void GivenIndianCensusCSVFile__WhenSortedAccordingToPopulationDensity_ShouldReturnTheSmallestState()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, IndiaCensusCsvFilePath);
+            string sortedData = censusAnalyser.GetPopulationDensityWiseSortedCensusData();
+            List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
+            Assert.AreEqual("Arunachal Pradesh", sortedList[28].state);
+        }
+
+        /// <summary>
+        /// Load the Indian Census File and Sort the data by AreaPerInSqKm and returns the Largest State by Area
+        /// </summary>
+        [Test]
+        public void GivenIndianCensusCSVFile__WhenSortedAccordingToArea_ShouldReturnTheLargestState()
         {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,IndiaCensusCsvFilePath);
             string sortedData = censusAnalyser.GetAreaWiseSortedCensusData();
-            Console.WriteLine(sortedData);
+            List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
+            Assert.AreEqual("Rajasthan", sortedList[0].state);
+        }
+
+        /// <summary>
+        /// Load the Indian Census File and Sort the data by AreaPerInSqKm and returns the Smallest State by Area
+        /// </summary>
+        [Test]
+        public void GivenIndianCensusCSVFile__WhenSortedAccordingToArea_ShouldReturnTheSmallestState()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, IndiaCensusCsvFilePath);
+            string sortedData = censusAnalyser.GetAreaWiseSortedCensusData();
+            List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
+            Assert.AreEqual("Goa", sortedList[28].state);
         }
 
         /// <summary>
@@ -371,39 +446,79 @@ namespace NUnitTestCensusAnalyser
         }
 
         /// <summary>
-        /// Load the US Census File and Sort the data by Population and result Store in Json Format
+        /// Load the US Census File and Sort the data by Population and returns the Largest State by Population
         /// </summary>
         [Test]
-        public void GivenUSCensusCSVFile__WhenSortedAccordingToPopulation_ShouldPrintTheSortedResult()
+        public void GivenUSCensusCSVFile__WhenSortedAccordingToPopulation_ShouldPrintTheLargestState()
         {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
             string sortedData = censusAnalyser.GetPopulationWiseSortedUSCensusData();
-            Console.WriteLine(sortedData);
+            List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
+            Assert.AreEqual("California", sortedList[0].state);
         }
 
         /// <summary>
-        /// Load the US Census File and Sort the data by Population Density and result Store in Json Format
+        /// Load the US Census File and Sort the data by Population and returns the Smallest State by Population
         /// </summary>
         [Test]
-        public void GivenUSCensusCSVFile__WhenSortedAccordingToPopulationDensity_ShouldPrintTheSortedResult()
+        public void GivenUSCensusCSVFile__WhenSortedAccordingToPopulation_ShouldPrintTheSmallestState()
+        {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
+            string sortedData = censusAnalyser.GetPopulationWiseSortedUSCensusData();
+            List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
+            Assert.AreEqual("Wyoming", sortedList[50].state);
+        }
+
+        /// <summary>
+        /// Load the US Census File and Sort the data by Population Density and returns the Largest State by Population Density
+        /// </summary>
+        [Test]
+        public void GivenUSCensusCSVFile__WhenSortedAccordingToPopulationDensity_ShouldReturnTheLargestState()
         {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
             string sortedData = censusAnalyser.GetPopulationDensityWiseSortedUSCensusData();
-            Console.WriteLine(sortedData);
+            List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
+            Assert.AreEqual("District of Columbia", sortedList[0].state);
         }
 
         /// <summary>
-        /// Load the US Census File and Sort the data by Area and result Store in Json Format
+        /// Load the US Census File and Sort the data by Population Density and returns the Largest State by Population Density
         /// </summary>
         [Test]
-        public void GivenUSCensusCSVFile__WhenSortedAccordingToArea_ShouldPrintTheSortedResult()
+        public void GivenUSCensusCSVFile__WhenSortedAccordingToPopulationDensity_ShouldReturnTheSmallestState()
         {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
+            string sortedData = censusAnalyser.GetPopulationDensityWiseSortedUSCensusData();
+            List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
+            Assert.AreEqual("Alaska", sortedList[50].state);
+        }
+
+        /// <summary>
+        /// Load the US Census File and Sort the data by Area and returns the Largest Area
+        /// </summary>
+        [Test]
+        public void GivenUSCensusCSVFile__WhenSortedAccordingToArea_ShouldReturnTheLargestArea()
+        {
+            censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
             string sortedData = censusAnalyser.GetAreaWiseSortedUSCensusData();
-            Console.WriteLine(sortedData);
+            List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
+            Assert.AreEqual("Alaska", sortedList[0].state);
+        }
+
+        /// <summary>
+        /// Load the US Census File and Sort the data by Area and returns the smallest Area
+        /// </summary>
+        [Test]
+        public void GivenUSCensusCSVFile__WhenSortedAccordingToArea_ShouldReturnTheSmallestArea()
+        {
+            censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
+            string sortedData = censusAnalyser.GetAreaWiseSortedUSCensusData();
+            List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
+            Assert.AreEqual("District of Columbia", sortedList[50].state);
         }
     }
 }
