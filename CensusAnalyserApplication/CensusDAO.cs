@@ -1,35 +1,81 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace CensusAnalyserApplication
+{
+    using System;
 
-namespace CensusAnalyserApplication
-{ 
     /// <summary>
-    /// This Class is used to Accecc the Fields of csv files
+    /// This Class is used to Access the Fields of CSV files
     /// </summary>
     public class CensusDAO
     {
         /// <summary>
-        /// Fields Which Are Used In Indian Census Data
+        /// It stores the State Field of CSV file
         /// </summary>
-        public String state;
-        public double population;
-        public double densityPerSqKm;
-        public double areaInSqKm;
-        public String stateId;
-        public String stateCode;
-        public double tin;
-        public double srNo;
+        public string State;
 
         /// <summary>
-        /// Fields Which Are Used In US Census Data
+        /// It stores the population Field of CSV file
         /// </summary>
-        public double housingUnits;
-        public double totalArea;
-        public double waterArea;
-        public double landArea;
-        public double populationDensity;
-        public double housingDensity;
+        public double Population;
+
+        /// <summary>
+        /// It stores the density Field of CSV file
+        /// </summary>
+        public double DensityPerSqKm;
+
+        /// <summary>
+        /// It stores the area Field of CSV file
+        /// </summary>
+        public double AreaInSqKm;
+
+        /// <summary>
+        /// It stores the State Id Field of CSV file
+        /// </summary>
+        public string StateId;
+
+        /// <summary>
+        /// It stores the State code Field of CSV file
+        /// </summary>
+        public string StateCode;
+
+        /// <summary>
+        /// It stores the Tin Field of CSV file
+        /// </summary>
+        public double Tin;
+
+        /// <summary>
+        /// It stores the serial number Field of CSV file
+        /// </summary>
+        public double SrNo;
+
+        /// <summary>
+        /// It stores the housing units Field of CSV file
+        /// </summary>
+        public double HousingUnits;
+
+        /// <summary>
+        /// It stores the Total area Field of CSV file
+        /// </summary>
+        public double TotalArea;
+
+        /// <summary>
+        /// It stores the water area Field of CSV file
+        /// </summary>
+        public double WaterArea;
+
+        /// <summary>
+        /// It stores the land area Field of CSV file
+        /// </summary>
+        public double LandArea;
+
+        /// <summary>
+        /// It stores the population density Field of CSV file
+        /// </summary>
+        public double PopulationDensity;
+
+        /// <summary>
+        /// It represent the serial number Field of CSV file
+        /// </summary>
+        public double HousingDensity;
 
         /// <summary>
         /// Default Constructor;

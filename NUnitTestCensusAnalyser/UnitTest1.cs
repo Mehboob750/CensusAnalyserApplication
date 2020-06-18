@@ -1,31 +1,53 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using CensusAnalyserApplication;
-using Nancy.Json;
-using Newtonsoft.Json;
-using NUnit.Framework;
-
 namespace NUnitTestCensusAnalyser
 {
+    using System.Collections.Generic;
+    using CensusAnalyserApplication;
+    using Nancy.Json;
+    using NUnit.Framework;
+
+    /// <summary>
+    /// This class is contains the Test Cases to check the functionality of Census Analyzer Application
+    /// </summary>
     public class Tests
     {
+        /// <summary>
+        /// Used string variable to store the India Census CSV File Path
+        /// </summary>
+        private static string indiaCensusCsvFilePath = @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\IndiaStateCensusData.csv";
+
+        /// <summary>
+        /// Used string variable to store the Incorrect File Type Path
+        /// </summary>
+        private static string incorrcectFilePath = @"IndiaStateCensus.csv";
+
+        /// <summary>
+        /// Used string variable to store the Incorrect Extension Type Path
+        /// </summary>
+        private static string incorrectExtensionTypePath = @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\IndiaStateCensusData.MP4";
+
+        /// <summary>
+        /// Used string variable to store the India State Code CSV File Path
+        /// </summary>
+        private static string indiaStateCodeCsvFilePath = @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\IndiaStateCode.csv";
+
+        /// <summary>
+        /// Used string variable to store the US Census CSV File Path
+        /// </summary>
+        private static string unitedStateCensusCsvFilePath = @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\USCensusData.csv";
+
+        /// <summary>
+        /// Created the Reference of Census Analyzer Class Globally
+        /// </summary>
+        private CensusAnalyser censusAnalyser = null;
+
+        /// <summary>
+        ///  Created the Object of Census Analyzer Class
+        /// </summary>
         [SetUp]
         public void Setup()
         {
-
+            this.censusAnalyser = new CensusAnalyser();
         }
-
-        public CensusAnalyser censusAnalyser = new CensusAnalyser();
-
-        /// <summary>
-        /// Used string variables to store the csv file paths
-        /// </summary>
-        public static string IndiaCensusCsvFilePath = @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\IndiaStateCensusData.csv";
-        public static string IncorrcectFilePath = @"IndiaStateCensus.csv";
-        public static string IncorrectExtensionTypePath = @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\IndiaStateCensusData.MP4";
-        public static string IndiaStateCodeCsvFilePath = @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\IndiaStateCode.csv";
-        public static string USCensusCsvFilePath= @"C:\Users\Mehboob Shaikh\source\repos\CensusAnalyserApplication\NUnitTestCensusAnalyser\Resources\USCensusData.csv";
 
         /// <summary>
         /// Load the Indian Census File and Check For the number of records present in the file
@@ -33,8 +55,7 @@ namespace NUnitTestCensusAnalyser
         [Test]
         public void GivenIndianCensusCSVFile_WhenLoaded_ShouldReturnCorrectRecord()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            int numberOfRecords = censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,IndiaCensusCsvFilePath);
+            int numberOfRecords = this.censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, indiaCensusCsvFilePath);
             Assert.AreEqual(29, numberOfRecords);
         }
 
@@ -46,8 +67,7 @@ namespace NUnitTestCensusAnalyser
         {
             try
             {
-                CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,IncorrcectFilePath);
+                this.censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, incorrcectFilePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -63,8 +83,7 @@ namespace NUnitTestCensusAnalyser
         {
             try
             {
-                CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, IncorrectExtensionTypePath);
+                this.censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, incorrectExtensionTypePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -73,15 +92,14 @@ namespace NUnitTestCensusAnalyser
         }
 
         /// <summary>
-        /// Given file with incorrect Delimeter to load the data should throw exception
+        /// Given file with incorrect Delimiter to load the data should throw exception
         /// </summary>
         [Test]
         public void GivenIndianCensusCSVFile__WhenDelimeterIncorrect_ShouldThrowCustomException()
         {
             try
             {
-                CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,IndiaCensusCsvFilePath);
+                this.censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, indiaCensusCsvFilePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -97,8 +115,7 @@ namespace NUnitTestCensusAnalyser
         {
             try
             {
-                CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,IndiaCensusCsvFilePath);
+                this.censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, indiaCensusCsvFilePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -107,15 +124,14 @@ namespace NUnitTestCensusAnalyser
         }
 
         /// <summary>
-        /// Load the Indian Census File and if it contains NUll it throws Custom Exception
+        /// Load the Indian Census File and if it contains null it throws Custom Exception
         /// </summary>
         [Test]
         public void GivenNull_WhenLoaded_ShouldThrowCustomException()
         {
             try
             {
-                CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,null);
+                this.censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, null);
             }
             catch (CensusAnalyserException e)
             {
@@ -129,8 +145,7 @@ namespace NUnitTestCensusAnalyser
         [Test]
         public void GivenIndianStateCodeCSVFile_WhenLoaded_ShouldReturnCorrectRecord()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            int numberOfRecords= censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA,IndiaStateCodeCsvFilePath);
+            int numberOfRecords = this.censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA, indiaStateCodeCsvFilePath);
             Assert.AreEqual(37, numberOfRecords);
         }
 
@@ -142,8 +157,7 @@ namespace NUnitTestCensusAnalyser
         {
             try
             {
-                CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA,IncorrcectFilePath);
+                this.censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA, incorrcectFilePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -159,8 +173,7 @@ namespace NUnitTestCensusAnalyser
         {
             try
             {
-                CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA,IncorrectExtensionTypePath);
+                this.censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA, incorrectExtensionTypePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -169,15 +182,14 @@ namespace NUnitTestCensusAnalyser
         }
 
         /// <summary>
-        /// Given file with incorrect Delimeter to load the data should throw exception
+        /// Given file with incorrect Delimiter to load the data should throw exception
         /// </summary>
         [Test]
         public void GivenIndianStateCodeCSVFile__WhenDelimeterIncorrect_ShouldThrowCustomException()
         {
             try
             {
-                CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA,IndiaStateCodeCsvFilePath);
+                this.censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA, indiaStateCodeCsvFilePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -193,8 +205,7 @@ namespace NUnitTestCensusAnalyser
         {
             try
             {
-                CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA,IndiaStateCodeCsvFilePath);
+                this.censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA, indiaStateCodeCsvFilePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -203,15 +214,14 @@ namespace NUnitTestCensusAnalyser
         }
 
         /// <summary>
-        /// Load the Indian Census File and if it contains NUll it throws Custom Exception
+        /// Load the Indian Census File and if it contains null it throws Custom Exception
         /// </summary>
         [Test]
         public void GivenStateCodeNull_WhenLoaded_ShouldThrowCustomException()
         {
             try
             {
-                CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA,null);
+                this.censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA, null);
             }
             catch (CensusAnalyserException e)
             {
@@ -225,11 +235,10 @@ namespace NUnitTestCensusAnalyser
         [Test]
         public void GivenIndianCensusCSVFile__WhenSortedAccordingToState_ShouldReturnTheLargestState()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,IndiaCensusCsvFilePath);
-            string sortedData= censusAnalyser.GetStateWiseSortedCensusData();
+            this.censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, indiaCensusCsvFilePath);
+            string sortedData = this.censusAnalyser.GetStateWiseSortedCensusData();
             List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
-            Assert.AreEqual("Andhra Pradesh", sortedList[0].state);
+            Assert.AreEqual("Andhra Pradesh", sortedList[0].State);
         }
 
         /// <summary>
@@ -238,11 +247,10 @@ namespace NUnitTestCensusAnalyser
         [Test]
         public void GivenIndianCensusCSVFile__WhenSortedAccordingToState_ShouldReturnTheSmallestState()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, IndiaCensusCsvFilePath);
-            string sortedData = censusAnalyser.GetStateWiseSortedCensusData();
+            this.censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, indiaCensusCsvFilePath);
+            string sortedData = this.censusAnalyser.GetStateWiseSortedCensusData();
             List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
-            Assert.AreEqual("West Bengal", sortedList[28].state);
+            Assert.AreEqual("West Bengal", sortedList[28].State);
         }
 
         /// <summary>
@@ -251,24 +259,22 @@ namespace NUnitTestCensusAnalyser
         [Test]
         public void GivenIndianStateCodeCSVFile__WhenSortedAccordingToStateCode_ShouldReturnTheLargestState()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA,IndiaStateCodeCsvFilePath);
-            string sortedData = censusAnalyser.GetStateCodeWiseSortedCensusData();
+            this.censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA, indiaStateCodeCsvFilePath);
+            string sortedData = this.censusAnalyser.GetStateCodeWiseSortedCensusData();
             List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
-            Assert.AreEqual("Andhra Pradesh New", sortedList[0].state);
+            Assert.AreEqual("Andhra Pradesh New", sortedList[0].State);
         }
 
         /// <summary>
-        /// Load the Indian State Code File and Sort the data by State Code and Largest State by State Code
+        /// Load the Indian State Code File and Sort the data by State Code and Smallest State by State Code
         /// </summary>
         [Test]
         public void GivenIndianStateCodeCSVFile__WhenSortedAccordingToStateCode_ShouldReturnTheSmallestState()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA, IndiaStateCodeCsvFilePath);
-            string sortedData = censusAnalyser.GetStateCodeWiseSortedCensusData();
+            this.censusAnalyser.LoadIndiaStateCodeData(CensusAnalyser.Country.INDIA, indiaStateCodeCsvFilePath);
+            string sortedData = this.censusAnalyser.GetStateCodeWiseSortedCensusData();
             List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
-            Assert.AreEqual("West Bengal", sortedList[36].state);
+            Assert.AreEqual("West Bengal", sortedList[36].State);
         }
 
         /// <summary>
@@ -277,11 +283,10 @@ namespace NUnitTestCensusAnalyser
         [Test]
         public void GivenIndianCensusCSVFile__WhenSortedAccordingToPopulation_ShouldReturnTheLargestState()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,IndiaCensusCsvFilePath);
-            string sortedData = censusAnalyser.GetPopulationWiseSortedCensusData();
+            this.censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, indiaCensusCsvFilePath);
+            string sortedData = this.censusAnalyser.GetPopulationWiseSortedCensusData();
             List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
-            Assert.AreEqual("Uttar Pradesh", sortedList[0].state);
+            Assert.AreEqual("Uttar Pradesh", sortedList[0].State);
         }
 
         /// <summary>
@@ -290,11 +295,10 @@ namespace NUnitTestCensusAnalyser
         [Test]
         public void GivenIndianCensusCSVFile__WhenSortedAccordingToPopulation_ShouldReturnTheSmallestState()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, IndiaCensusCsvFilePath);
-            string sortedData = censusAnalyser.GetPopulationWiseSortedCensusData();
+            this.censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, indiaCensusCsvFilePath);
+            string sortedData = this.censusAnalyser.GetPopulationWiseSortedCensusData();
             List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
-            Assert.AreEqual("Sikkim", sortedList[28].state);
+            Assert.AreEqual("Sikkim", sortedList[28].State);
         }
 
         /// <summary>
@@ -303,11 +307,10 @@ namespace NUnitTestCensusAnalyser
         [Test]
         public void GivenIndianCensusCSVFile__WhenSortedAccordingToPopulationDensity_ShouldReturnTheLargestState()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,IndiaCensusCsvFilePath);
-            string sortedData = censusAnalyser.GetPopulationDensityWiseSortedCensusData();
+            this.censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, indiaCensusCsvFilePath);
+            string sortedData = this.censusAnalyser.GetPopulationDensityWiseSortedCensusData();
             List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
-            Assert.AreEqual("Bihar", sortedList[0].state);
+            Assert.AreEqual("Bihar", sortedList[0].State);
         }
 
         /// <summary>
@@ -316,37 +319,34 @@ namespace NUnitTestCensusAnalyser
         [Test]
         public void GivenIndianCensusCSVFile__WhenSortedAccordingToPopulationDensity_ShouldReturnTheSmallestState()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, IndiaCensusCsvFilePath);
-            string sortedData = censusAnalyser.GetPopulationDensityWiseSortedCensusData();
+            this.censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, indiaCensusCsvFilePath);
+            string sortedData = this.censusAnalyser.GetPopulationDensityWiseSortedCensusData();
             List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
-            Assert.AreEqual("Arunachal Pradesh", sortedList[28].state);
+            Assert.AreEqual("Arunachal Pradesh", sortedList[28].State);
         }
 
         /// <summary>
-        /// Load the Indian Census File and Sort the data by AreaPerInSqKm and returns the Largest State by Area
+        /// Load the Indian Census File and Sort the data by AreaPerInSquareKm and returns the Largest State by Area
         /// </summary>
         [Test]
         public void GivenIndianCensusCSVFile__WhenSortedAccordingToArea_ShouldReturnTheLargestState()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA,IndiaCensusCsvFilePath);
-            string sortedData = censusAnalyser.GetAreaWiseSortedCensusData();
+            this.censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, indiaCensusCsvFilePath);
+            string sortedData = this.censusAnalyser.GetAreaWiseSortedCensusData();
             List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
-            Assert.AreEqual("Rajasthan", sortedList[0].state);
+            Assert.AreEqual("Rajasthan", sortedList[0].State);
         }
 
         /// <summary>
-        /// Load the Indian Census File and Sort the data by AreaPerInSqKm and returns the Smallest State by Area
+        /// Load the Indian Census File and Sort the data by AreaPerInSquareKm and returns the Smallest State by Area
         /// </summary>
         [Test]
         public void GivenIndianCensusCSVFile__WhenSortedAccordingToArea_ShouldReturnTheSmallestState()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, IndiaCensusCsvFilePath);
-            string sortedData = censusAnalyser.GetAreaWiseSortedCensusData();
+            this.censusAnalyser.LoadIndiaCensusData(CensusAnalyser.Country.INDIA, indiaCensusCsvFilePath);
+            string sortedData = this.censusAnalyser.GetAreaWiseSortedCensusData();
             List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
-            Assert.AreEqual("Goa", sortedList[28].state);
+            Assert.AreEqual("Goa", sortedList[28].State);
         }
 
         /// <summary>
@@ -355,8 +355,7 @@ namespace NUnitTestCensusAnalyser
         [Test]
         public void GiveUsCensusCSVFile_WhenLoaded_ShouldReturnCorrectRecord()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            int numberOfRecords = censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US,USCensusCsvFilePath);
+            int numberOfRecords = this.censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, unitedStateCensusCsvFilePath);
             Assert.AreEqual(51, numberOfRecords);
         }
 
@@ -368,8 +367,7 @@ namespace NUnitTestCensusAnalyser
         {
             try
             {
-                CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, IncorrcectFilePath);
+                this.censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, incorrcectFilePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -385,8 +383,7 @@ namespace NUnitTestCensusAnalyser
         {
             try
             {
-                CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, IncorrectExtensionTypePath);
+                this.censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, incorrectExtensionTypePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -395,15 +392,14 @@ namespace NUnitTestCensusAnalyser
         }
 
         /// <summary>
-        /// Given file with incorrect Delimeter to load the data should throw exception
+        /// Given file with incorrect Delimiter to load the data should throw exception
         /// </summary>
         [Test]
         public void GivenUSCensusCSVFile__WhenDelimeterIncorrect_ShouldThrowCustomException()
         {
             try
             {
-                CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
+                this.censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, unitedStateCensusCsvFilePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -419,8 +415,7 @@ namespace NUnitTestCensusAnalyser
         {
             try
             {
-                CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
+                this.censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, unitedStateCensusCsvFilePath);
             }
             catch (CensusAnalyserException e)
             {
@@ -429,15 +424,14 @@ namespace NUnitTestCensusAnalyser
         }
 
         /// <summary>
-        /// Load the Indian Census File and if it contains NUll it throws Custom Exception
+        /// Load the Indian Census File and if it contains null it throws Custom Exception
         /// </summary>
         [Test]
         public void GivenFileNull_WhenLoaded_ShouldThrowCustomException()
         {
             try
             {
-                CensusAnalyser censusAnalyser = new CensusAnalyser();
-                censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, null);
+                this.censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, null);
             }
             catch (CensusAnalyserException e)
             {
@@ -451,11 +445,10 @@ namespace NUnitTestCensusAnalyser
         [Test]
         public void GivenUSCensusCSVFile__WhenSortedAccordingToPopulation_ShouldPrintTheLargestState()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
-            string sortedData = censusAnalyser.GetPopulationWiseSortedUSCensusData();
+            this.censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, unitedStateCensusCsvFilePath);
+            string sortedData = this.censusAnalyser.GetPopulationWiseSortedUSCensusData();
             List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
-            Assert.AreEqual("California", sortedList[0].state);
+            Assert.AreEqual("California", sortedList[0].State);
         }
 
         /// <summary>
@@ -464,11 +457,10 @@ namespace NUnitTestCensusAnalyser
         [Test]
         public void GivenUSCensusCSVFile__WhenSortedAccordingToPopulation_ShouldPrintTheSmallestState()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
-            string sortedData = censusAnalyser.GetPopulationWiseSortedUSCensusData();
+            this.censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, unitedStateCensusCsvFilePath);
+            string sortedData = this.censusAnalyser.GetPopulationWiseSortedUSCensusData();
             List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
-            Assert.AreEqual("Wyoming", sortedList[50].state);
+            Assert.AreEqual("Wyoming", sortedList[50].State);
         }
 
         /// <summary>
@@ -477,24 +469,22 @@ namespace NUnitTestCensusAnalyser
         [Test]
         public void GivenUSCensusCSVFile__WhenSortedAccordingToPopulationDensity_ShouldReturnTheLargestState()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
-            string sortedData = censusAnalyser.GetPopulationDensityWiseSortedUSCensusData();
+            this.censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, unitedStateCensusCsvFilePath);
+            string sortedData = this.censusAnalyser.GetPopulationDensityWiseSortedUSCensusData();
             List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
-            Assert.AreEqual("District of Columbia", sortedList[0].state);
+            Assert.AreEqual("District of Columbia", sortedList[0].State);
         }
 
         /// <summary>
-        /// Load the US Census File and Sort the data by Population Density and returns the Largest State by Population Density
+        /// Load the US Census File and Sort the data by Population Density and returns the Smallest State by Population Density
         /// </summary>
         [Test]
         public void GivenUSCensusCSVFile__WhenSortedAccordingToPopulationDensity_ShouldReturnTheSmallestState()
         {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
-            string sortedData = censusAnalyser.GetPopulationDensityWiseSortedUSCensusData();
+            this.censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, unitedStateCensusCsvFilePath);
+            string sortedData = this.censusAnalyser.GetPopulationDensityWiseSortedUSCensusData();
             List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
-            Assert.AreEqual("Alaska", sortedList[50].state);
+            Assert.AreEqual("Alaska", sortedList[50].State);
         }
 
         /// <summary>
@@ -503,10 +493,10 @@ namespace NUnitTestCensusAnalyser
         [Test]
         public void GivenUSCensusCSVFile__WhenSortedAccordingToArea_ShouldReturnTheLargestArea()
         {
-            censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
-            string sortedData = censusAnalyser.GetAreaWiseSortedUSCensusData();
+            this.censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, unitedStateCensusCsvFilePath);
+            string sortedData = this.censusAnalyser.GetAreaWiseSortedUSCensusData();
             List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
-            Assert.AreEqual("Alaska", sortedList[0].state);
+            Assert.AreEqual("Alaska", sortedList[0].State);
         }
 
         /// <summary>
@@ -515,10 +505,10 @@ namespace NUnitTestCensusAnalyser
         [Test]
         public void GivenUSCensusCSVFile__WhenSortedAccordingToArea_ShouldReturnTheSmallestArea()
         {
-            censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, USCensusCsvFilePath);
-            string sortedData = censusAnalyser.GetAreaWiseSortedUSCensusData();
+            this.censusAnalyser.LoadUsCensusData(CensusAnalyser.Country.US, unitedStateCensusCsvFilePath);
+            string sortedData = this.censusAnalyser.GetAreaWiseSortedUSCensusData();
             List<CensusDAO> sortedList = new JavaScriptSerializer().Deserialize<List<CensusDAO>>(sortedData);
-            Assert.AreEqual("District of Columbia", sortedList[50].state);
+            Assert.AreEqual("District of Columbia", sortedList[50].State);
         }
     }
 }
