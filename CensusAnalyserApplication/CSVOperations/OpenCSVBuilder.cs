@@ -53,6 +53,10 @@
             {
                 throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.ValueCanNotBeNull, e.Message);
             }
+            catch (Exception e)
+            {
+                throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.CensusFileProblem, e.Message);
+            }
 
             return csvData;
         }
